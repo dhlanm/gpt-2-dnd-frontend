@@ -45,7 +45,7 @@ const useStyles = makeStyles(() =>
 			borderWidth: '4px 0',
 			margin: '0 24px',
 			padding: '16px 0',
-			wordWrap: 'normal',
+			wordWrap: 'break-word',
 			whiteSpace: 'pre-wrap',
 			'&:before': {
 				display: 'block',
