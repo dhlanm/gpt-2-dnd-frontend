@@ -1,7 +1,9 @@
 import React from 'react'
-import AbilitiesBlock from './AbilitiesBlock'
-import StatHeader from './StatHeader'
+import AbilitiesBlock, { Props as AbilitiesProps} from './AbilitiesBlock'
+import PropertyLine from './PropertyLine'
+import StatHeader, { Props as StatHeaderProps } from './StatHeader'
 import SpellcastingBlock, { Spell } from './SpellcastingBlock'
+import TopStats, {Props as TopStatsProps} from './TopStats'
 import { createStyles, makeStyles } from '@material-ui/core'
 import parchment from './parchment.png'
 
@@ -41,13 +43,13 @@ const useStyles = makeStyles(() =>
 			marginTop: '0.6em',
 			marginBottom: '0.35em',
 		},
-		statLine: {
+		actionHeader: {
 			color: '#7A200D',
-			lineHeight: 1.4,
-			display: 'block',
-			textIndent: '-1em',
-			paddingLeft: '1em',
+			fontSize: 20,
+			fontVariant: 'small-caps',
+			fontWeight: 'normal',
 			margin: 0,
+			borderBottom: 'solid 2px #922510'
 		},
 	}),
 )
@@ -61,20 +63,21 @@ const TaperedRule: React.FC = () => {
 	)
 }
 
-const PropertyLine: React.FC<{ title: string }> = props => {
+const ActionHeader: React.FC = props => {
 	const classes = useStyles()
-	return (
-		<p className={classes.statLine}><b>{props.title}</b> {props.children}</p>
-	)
+	return <h5 className={classes.actionHeader}>{props.children}</h5>
 }
 
-interface Props {
+export interface NamedEntry {
 	name: string,
-	size: string,
-	type: string,
-	typeTags: string[],
-	alignment: string[],
-	spellcasting: Spell[],
+	entries: string[],
+}
+
+type Props = StatHeaderProps & TopStatsProps & {
+	abilities: AbilitiesProps
+
+	spellcasting?: Spell[]
+	actions?: NamedEntry[]
 }
 
 const StatBlock: React.FC<Props> = props => {
@@ -85,28 +88,21 @@ const StatBlock: React.FC<Props> = props => {
 			<article className={classes.content}>
 				<StatHeader {...props} />
 				<TaperedRule />
-				<PropertyLine title="Armor Class">18 (plate armor)</PropertyLine>
-				<PropertyLine title="Hit Points">192 (16d10 + 96)</PropertyLine>
-				<PropertyLine title="Speed">30ft</PropertyLine>
+				<TopStats {...props} />
 				<TaperedRule />
-				<AbilitiesBlock {...{
-					'str': 22,
-					'dex': 16,
-					'con': 24,
-					'int': 12,
-					'wis': 18,
-					'cha': 12,
-				}} />
+				<AbilitiesBlock {...props.abilities} />
 				<TaperedRule />
 				<PropertyLine title="Saving Throws">dex +7, con +9, int +5</PropertyLine>
 				<PropertyLine title="Damage Resistances">necrotic; bludgeoning, piercing, slashing
-					from
-					nonmagical attacks that aren't silvered</PropertyLine>
+					from nonmagical attacks that aren't silvered</PropertyLine>
 				<PropertyLine title="Languages">Common plus two more</PropertyLine>
 				<PropertyLine title="Challenge">9</PropertyLine>
 				<TaperedRule />
 				{props.spellcasting && props.spellcasting.map(spell =>
 					<SpellcastingBlock {...spell} />)}
+				{props.actions && (
+					<ActionHeader>Actions</ActionHeader>
+				)}
 			</article>
 			<div className={classes.bar} />
 		</>

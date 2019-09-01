@@ -58,11 +58,24 @@ const SAMPLE_MONSTER = {
 const Index: React.FC = () => {
 	const stats = {
 		name: SAMPLE_MONSTER.monster_name,
+		ac: SAMPLE_MONSTER.ac,
 		size: SAMPLE_MONSTER.size,
-		type: SAMPLE_MONSTER.type.type,
-		typeTags: SAMPLE_MONSTER.type.tags,
+		type: SAMPLE_MONSTER.type,
 		alignment: SAMPLE_MONSTER.alignment,
 		spellcasting: SAMPLE_MONSTER.spellcasting,
+		hitpoints: SAMPLE_MONSTER.hp,
+		speed: SAMPLE_MONSTER.speed,
+		abilities: {
+			str: SAMPLE_MONSTER.str,
+			dex: SAMPLE_MONSTER.dex,
+			con: SAMPLE_MONSTER.con,
+			int: SAMPLE_MONSTER.int,
+			wis: SAMPLE_MONSTER.wis,
+			cha: SAMPLE_MONSTER.cha,
+		},
+		// named entries
+		traits: SAMPLE_MONSTER.trait,
+		actions: SAMPLE_MONSTER.action,
 	}
 
 	return (

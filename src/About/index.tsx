@@ -71,7 +71,7 @@ const About: React.FC = () => (
 		<Title>Prettification</Title>
 		<p>I used <Link href="https://github.com/Valloric/statblock5e">Valloric's
 			5e statblocks</Link> to display the stats. I'm impressed with the attention to detail he
-			payed in making these as close to official-looking as possible. As a result, they look
+			paid in making these as close to official-looking as possible. As a result, they look
 			great and are thematically appropriate for the project. Additionally, I use <Link
 				href="https://materializecss.com">Materialize</Link> for the website.</p>
 	</>

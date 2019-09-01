@@ -16,7 +16,7 @@ const useStyles = makeStyles(() =>
 	}),
 )
 
-interface Props {
+export interface Props {
 	str: number,
 	dex: number,
 	con: number,
