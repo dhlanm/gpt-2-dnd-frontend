@@ -3,6 +3,7 @@ import AbilitiesBlock from './AbilitiesBlock'
 import StatHeader from './StatHeader'
 import SpellcastingBlock, { Spell } from './SpellcastingBlock'
 import { createStyles, makeStyles } from '@material-ui/core'
+import parchment from './parchment.png'
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -10,25 +11,27 @@ const useStyles = makeStyles(() =>
 			height: 5,
 			background: '#E69A28',
 			border: '1px solid #000',
-			position: 'relative',
 			zIndex: 1,
 		},
 		content: {
 			fontFamily: '"Noto Sans", "Myriad Pro", Calibri, Helvetica, Arial, sans-serif',
 			fontSize: 13.5,
-			background: '#FDF1DC',
 			padding: '0.6em',
 			paddingBottom: '0.5em',
 			border: '1px #DDD solid',
 			boxShadow: '0 0 1.5em #867453',
 
 			/* We don't want the box-shadow in front of the bar divs. */
-			position: 'relative',
 			zIndex: 0,
 
 			/* Leaving room for the two bars to protrude outwards */
 			marginLeft: 2,
 			marginRight: 2,
+
+			backgroundImage: `url(${parchment})`,
+			backgroundColor: '#FDF1DC',
+			backgroundSize: '100% auto',
+			backgroundRepeat: 'repeat-y',
 		},
 		taperedRule: {
 			fill: '#922610',
@@ -96,12 +99,14 @@ const StatBlock: React.FC<Props> = props => {
 				}} />
 				<TaperedRule />
 				<PropertyLine title="Saving Throws">dex +7, con +9, int +5</PropertyLine>
-				<PropertyLine title="Damage Resistances">necrotic; bludgeoning, piercing, slashing from
+				<PropertyLine title="Damage Resistances">necrotic; bludgeoning, piercing, slashing
+					from
 					nonmagical attacks that aren't silvered</PropertyLine>
 				<PropertyLine title="Languages">Common plus two more</PropertyLine>
 				<PropertyLine title="Challenge">9</PropertyLine>
 				<TaperedRule />
-				{props.spellcasting && <SpellcastingBlock />}
+				{props.spellcasting && props.spellcasting.map(spell =>
+					<SpellcastingBlock {...spell} />)}
 			</article>
 			<div className={classes.bar} />
 		</>

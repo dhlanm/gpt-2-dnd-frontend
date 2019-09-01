@@ -1,5 +1,6 @@
 import React from 'react'
 import { createStyles, makeStyles } from '@material-ui/core'
+import parchment from './StatBlock/parchment-green.png'
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -37,6 +38,9 @@ const useStyles = makeStyles(() =>
 			left: 0,
 			right: 0,
 			backgroundColor: '#B7CA89',
+			backgroundImage: `url(${parchment})`,
+			backgroundSize: '100% auto',
+			backgroundRepeat: 'repeat-y',
 			boxShadow: '0 0 16px #00000070',
 			zIndex: -1,
 		},
