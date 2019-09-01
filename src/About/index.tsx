@@ -1,15 +1,5 @@
 import React from 'react'
-import {
-	Container,
-	createStyles,
-	Link as MaterialLink,
-	makeStyles,
-	Typography,
-} from '@material-ui/core'
-
-const Link: React.FC<{ href: string }> = props => (
-	<MaterialLink href={props.href} target="_blank" rel="noopener">{props.children}</MaterialLink>
-)
+import { createStyles, Link as MaterialLink, makeStyles, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -19,13 +9,17 @@ const useStyles = makeStyles(() =>
 	}),
 )
 
+const Link: React.FC<{ href: string }> = props => (
+	<MaterialLink href={props.href} target="_blank" rel="noopener">{props.children}</MaterialLink>
+)
+
 const Title: React.FC = props => {
 	const classes = useStyles()
 	return <Typography variant="h5" className={classes.title}>{props.children}</Typography>
 }
 
 const About: React.FC = () => (
-	<Container>
+	<>
 		<Title>Overview</Title>
 		<p>This generator creates monsters for <Link
 			href="https://dnd.wizards.com/dungeons-and-dragons/what-is-dd">5th edition Dungeons and
@@ -41,7 +35,8 @@ const About: React.FC = () => (
 			well, and manages to output valid JSON about 80% of the time at high temperatures, and
 			closer to 100% of the time at low ones.</p>
 		<p>I was unsatisfied with only using official data, so I also
-			attempted to scrape <Link href="https://www.dndbeyond.com/homebrew/monsters">D&D Beyond's
+			attempted to scrape <Link href="https://www.dndbeyond.com/homebrew/monsters">D&D
+				Beyond's
 				homebrew monsters</Link>. I only took the ones with a rating of 1 or higher (the
 			generated results are zany enough without including such monsters as the "Big Funny").
 			Conversion from the homebrew monster data to JSON can occasionally be incorrect, which
@@ -79,7 +74,7 @@ const About: React.FC = () => (
 			payed in making these as close to official-looking as possible. As a result, they look
 			great and are thematically appropriate for the project. Additionally, I use <Link
 				href="https://materializecss.com">Materialize</Link> for the website.</p>
-	</Container>
+	</>
 )
 
 export default About
