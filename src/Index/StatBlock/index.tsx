@@ -1,12 +1,14 @@
 import React from 'react'
-import AbilitiesBlock, { Props as AbilitiesProps } from './AbilitiesBlock'
-import ActionBlock, { Props as ActionProps } from './ActionBlock'
-import InfoBlock, { Props as InfoProps } from './InfoBlock'
-import StatHeader, { Props as StatHeaderProps } from './StatHeader'
-import SpellcastingBlock, { Spell } from './SpellcastingBlock'
-import TopStats, { Props as TopStatsProps } from './TopStats'
+import AbilitiesBlock from './AbilitiesBlock'
+import ActionBlock from './ActionBlock'
+import InfoBlock from './InfoBlock'
+import StatHeader from './StatHeader'
+import SpellcastingBlock from './SpellcastingBlock'
+import TopStats from './TopStats'
 import { createStyles, makeStyles } from '@material-ui/core'
 import parchment from './parchment.png'
+import { useSelector } from 'react-redux'
+import { selectSpells } from '../../Store/selectors'
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -56,28 +58,23 @@ const TaperedRule: React.FC = () => {
 	)
 }
 
-type Props = StatHeaderProps & TopStatsProps & InfoProps & ActionProps & {
-	abilities: AbilitiesProps
-	spellcasting?: Spell[]
-}
-
-const StatBlock: React.FC<Props> = props => {
+const StatBlock: React.FC = () => {
 	const classes = useStyles()
+	const spells = useSelector(selectSpells)
 	return (
 		<>
 			<div className={classes.bar} />
 			<article className={classes.content}>
-				<StatHeader {...props} />
+				<StatHeader />
 				<TaperedRule />
-				<TopStats {...props} />
+				<TopStats />
 				<TaperedRule />
-				<AbilitiesBlock {...props.abilities} />
+				<AbilitiesBlock />
 				<TaperedRule />
-				<InfoBlock {...props} />
+				<InfoBlock />
 				<TaperedRule />
-				{props.spellcasting && props.spellcasting.map(spell =>
-					<SpellcastingBlock {...spell} />)}
-				<ActionBlock {...props} />
+				{spells.map(spell => <SpellcastingBlock {...spell} />)}
+				<ActionBlock />
 			</article>
 			<div className={classes.bar} />
 		</>

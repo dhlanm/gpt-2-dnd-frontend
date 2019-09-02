@@ -1,21 +1,6 @@
 import React from 'react'
 import PropertyBlock from './PropertyBlock'
-
-export interface Spell {
-	name: string,
-	headerEntries: string[],
-	will?: string[],
-	daily?: {
-		[day: string]: string[],
-	},
-	spells?: {
-		[level: number]: {
-			slots?: number,
-			spells: string[]
-		}
-	}
-	ability: string,
-}
+import { Spell } from '../../Store/reducers/spellCasting'
 
 const nth = (n: number) => n + (['st', 'nd', 'rd'][((n + 90) % 100 - 10) % 10 - 1] || 'th')
 

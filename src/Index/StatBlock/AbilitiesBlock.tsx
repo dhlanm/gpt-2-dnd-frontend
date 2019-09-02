@@ -1,5 +1,7 @@
 import React from 'react'
 import { createStyles, makeStyles } from '@material-ui/core'
+import { useSelector } from 'react-redux'
+import { selectAbilities } from '../../Store/selectors'
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -16,19 +18,11 @@ const useStyles = makeStyles(() =>
 	}),
 )
 
-export interface Props {
-	str: number,
-	dex: number,
-	con: number,
-	int: number,
-	wis: number,
-	cha: number,
-}
-
-const AbilitiesBlock: React.FC<Props> = props => {
+const AbilitiesBlock: React.FC = () => {
 	const classes = useStyles()
+	const {str, dex, con, int, wis, cha} = useSelector(selectAbilities)
 	const titles = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA']
-	const stats = [props.str, props.dex, props.con, props.int, props.wis, props.cha]
+	const stats = [str, dex, con, int, wis, cha]
 	return (
 		<table className={classes.table}>
 			<tr>

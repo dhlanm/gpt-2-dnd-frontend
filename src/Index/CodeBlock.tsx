@@ -1,6 +1,8 @@
 import React from 'react'
 import { createStyles, makeStyles } from '@material-ui/core'
 import parchment from './StatBlock/parchment-green.png'
+import { useSelector } from 'react-redux'
+import { selectJsonString } from '../Store/selectors'
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -80,12 +82,13 @@ const useStyles = makeStyles(() =>
 )
 
 
-const CodeBlock: React.FC = props => {
+const CodeBlock: React.FC = () => {
 	const classes = useStyles()
+	const jsonString = useSelector(selectJsonString)
 	return (
 		<aside className={classes.root}>
 			<div className={classes.wrapper} />
-			<pre className={classes.pre}>{props.children}</pre>
+			<pre className={classes.pre}>{jsonString}</pre>
 		</aside>
 	)
 }

@@ -1,5 +1,7 @@
 import React from 'react'
 import { createStyles, makeStyles } from '@material-ui/core'
+import { useSelector } from 'react-redux'
+import { selectStatHeader } from '../../Store/selectors'
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -21,59 +23,13 @@ const useStyles = makeStyles(() =>
 	}),
 )
 
-enum SIZE_TO_DESC {
-	T = 'Tiny',
-	S = 'Small',
-	M = 'Medium',
-	L = 'Large',
-	H = 'Huge',
-	G = 'Gargantuan',
-}
-
-enum ALIGNMENT_TO_DESC {
-	A = 'any alignment',
-	C = 'chaotic',
-	E = 'evil',
-	G = 'good',
-	L = 'lawful',
-	N = 'neutral',
-	U = 'unaligned',
-}
-
-type TagType = string | {
-	prefix: string,
-	tag: string,
-}
-
-export type MonsterType = string | {
-	type: string,
-	tags?: TagType[],
-}
-
-export interface Props {
-	name: string
-	size: keyof typeof SIZE_TO_DESC
-	type: MonsterType
-	alignment: (keyof typeof ALIGNMENT_TO_DESC)[]
-}
-
-const formatType = (type: string, tags: TagType[]): string => {
-	if (type.includes('swarmSize')) return type
-	if (tags.length === 0) return type
-	return `${type} (${tags.map(
-		tag => typeof tag === 'string' ? tag : `${tag.prefix} ${tag.tag}`
-	).join(', ')})`
-}
-
-const StatHeader: React.FC<Props> = props => {
+const StatHeader: React.FC = () => {
 	const classes = useStyles()
-	const {type} = props
-	const typeDesc = typeof type === 'string' ? type :
-		formatType(type.type, type.tags == null ? [] : type.tags)
+	const {name, sizeDesc, typeDesc, alignmentDesc} = useSelector(selectStatHeader)
 	return (
 		<>
-			<h1 className={classes.title}>{props.name}</h1>
-			<h2 className={classes.subtitle}>{SIZE_TO_DESC[props.size]} {typeDesc}, {props.alignment.map(a => ALIGNMENT_TO_DESC[a]).join(' ')}</h2>
+			<h1 className={classes.title}>{name}</h1>
+			<h2 className={classes.subtitle}>{sizeDesc} {typeDesc}, {alignmentDesc}</h2>
 		</>
 	)
 }
