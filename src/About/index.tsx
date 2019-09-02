@@ -69,11 +69,12 @@ const About: React.FC = () => (
 		</p>
 
 		<Title>Prettification</Title>
-		<p>I used <Link href="https://github.com/Valloric/statblock5e">Valloric's
-			5e statblocks</Link> to display the stats. I'm impressed with the attention to detail he
-			paid in making these as close to official-looking as possible. As a result, they look
-			great and are thematically appropriate for the project. Additionally, I use <Link
-				href="https://materializecss.com">Materialize</Link> for the website.</p>
+    <p>Huge thanks to <Link href="https://github.com/el1t">Ellis Tsung</link> for redoing the 
+      UI for me and making it into something beautiful. I'm deeply impressed by his fastidiousness 
+      in matching the design to official 5e material. You might also want to check out <Link 
+        href="https://github.com/Valloric/statblock5e">Valloric's 5e statblocks</Link>, which he 
+      based the design of the statblocks off of.
+    </p>
 	</>
 )
 
