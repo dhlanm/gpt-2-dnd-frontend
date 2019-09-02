@@ -49,6 +49,8 @@ const useStyles = makeStyles(() =>
 		pre: {
 			borderStyle: 'solid none',
 			borderWidth: '4px 0',
+			fontSize: 12,
+			lineHeight: 1.4,
 			margin: '0 24px',
 			padding: '16px 0',
 			wordWrap: 'break-word',
@@ -77,7 +79,7 @@ const useStyles = makeStyles(() =>
 				borderWidth: '16px 24px 0 0',
 				borderColor: 'black transparent transparent black',
 			},
-		}
+		},
 	}),
 )
 

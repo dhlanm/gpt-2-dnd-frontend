@@ -12,6 +12,11 @@ export const selectJsonString = createSelector(
 	defaultCombiner,
 )
 
+export const selectLoading = createSelector(
+	(state: AppState) => state.system.loading,
+	defaultCombiner,
+)
+
 export const selectActions = createSelector(
 	(state: AppState) => state.action,
 	defaultCombiner,

@@ -49,18 +49,29 @@ export interface JsonPayload {
 	legendary?: NamedEntry[]
 }
 
+interface RequestParams {
+	name: string
+	type: string
+	size: string
+	temp: number
+}
+
 export const SET_JSON = 'SET_JSON'
 export const LOAD_DATA = 'LOAD_DATA'
 
 export type Action = {
 	type: typeof LOAD_DATA,
+	payload: RequestParams,
 } | {
 	type: typeof SET_JSON,
 	payload: JsonPayload,
 }
 
-export function loadData(): Action {
-	return { type: 'LOAD_DATA' }
+export function loadData(payload: RequestParams): Action {
+	return {
+		type: 'LOAD_DATA',
+		payload,
+	}
 }
 
 export function setJson(payload: JsonPayload): Action {

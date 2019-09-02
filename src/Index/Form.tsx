@@ -13,6 +13,9 @@ import {
 	TextField,
 	Typography,
 } from '@material-ui/core'
+import { useDispatch, useSelector } from 'react-redux'
+import { loadData } from '../Store/actions'
+import { selectLoading } from '../Store/selectors'
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -43,11 +46,14 @@ function Form(): React.ReactElement {
 	const [type, setType] = useField('')
 	const [size, setSize] = useField('')
 	const [temp, setTemp] = useState(0.8)
+	const dispatch = useDispatch()
 
 	const onSubmit = useCallback(e => {
 		e.preventDefault()
-		// TODO: SUBMIT
-	}, [name, type, size, temp])
+		dispatch(loadData({name, type, size, temp}))
+	}, [dispatch, name, type, size, temp])
+
+	const loading = useSelector(selectLoading)
 
 	const onTempSliderChange = useCallback((_, v) => temp !== v && setTemp(v), [temp])
 	const onTempInputChange = useCallback(({target: {value: v}}) => temp !== v && setTemp(v), [temp])
@@ -61,6 +67,7 @@ function Form(): React.ReactElement {
 			<TextField
 				fullWidth
 				id="name"
+				disabled={loading}
 				label="Monster Name"
 				margin="normal"
 				onChange={setName}
@@ -71,7 +78,7 @@ function Form(): React.ReactElement {
 					shrink: true,
 				}}
 			/>
-			<FormControl variant="filled" margin="normal" fullWidth>
+			<FormControl disabled={loading} variant="filled" margin="normal" fullWidth>
 				<InputLabel htmlFor="size" shrink={true}>Size</InputLabel>
 				<Select
 					displayEmpty
@@ -93,6 +100,7 @@ function Form(): React.ReactElement {
 				id="type"
 				label="Monster Type"
 				margin="normal"
+				disabled={loading}
 				onChange={setType}
 				placeholder="Generate Automatically"
 				value={type}
@@ -108,6 +116,7 @@ function Form(): React.ReactElement {
 				<Slider
 					aria-labelledby="temp-label"
 					className={classes.tempSlider}
+					disabled={loading}
 					min={0}
 					max={1}
 					onChange={onTempSliderChange}
@@ -118,6 +127,7 @@ function Form(): React.ReactElement {
 					className={classes.tempTextField}
 					margin="dense"
 					variant="outlined"
+					disabled={loading}
 					value={temp}
 					onChange={onTempInputChange}
 					onBlur={onTempBlur}
@@ -134,6 +144,7 @@ function Form(): React.ReactElement {
 			<Button
 				color="primary"
 				className={classes.createButton}
+				disabled={loading}
 				type="submit"
 				variant="contained">
 				Create

@@ -8,7 +8,8 @@ import TopStats from './TopStats'
 import { createStyles, makeStyles } from '@material-ui/core'
 import parchment from './parchment.png'
 import { useSelector } from 'react-redux'
-import { selectSpells } from '../../Store/selectors'
+import { selectLoading, selectSpells } from '../../Store/selectors'
+import LoadingOverlay from '../LoadingOverlay'
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -27,6 +28,7 @@ const useStyles = makeStyles(() =>
 			boxShadow: '0 0 1.5em #867453',
 
 			/* We don't want the box-shadow in front of the bar divs. */
+			position: 'relative',
 			zIndex: 0,
 
 			/* Leaving room for the two bars to protrude outwards */
@@ -61,10 +63,12 @@ const TaperedRule: React.FC = () => {
 const StatBlock: React.FC = () => {
 	const classes = useStyles()
 	const spells = useSelector(selectSpells)
+	const loading = useSelector(selectLoading)
 	return (
 		<>
 			<div className={classes.bar} />
 			<article className={classes.content}>
+				{loading && <LoadingOverlay />}
 				<StatHeader />
 				<TaperedRule />
 				<TopStats />
