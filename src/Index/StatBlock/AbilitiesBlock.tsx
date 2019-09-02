@@ -25,15 +25,23 @@ const AbilitiesBlock: React.FC = () => {
 	const stats = [str, dex, con, int, wis, cha]
 	return (
 		<table className={classes.table}>
+			<tbody>
 			<tr>
-				{titles.map(title => <th className={classes.cell}>{title}</th>)}
+				{titles.map(title => <th className={classes.cell} key={title}>{title}</th>)}
 			</tr>
 			<tr>
-				{stats.map(stat => {
+				{stats.map((stat, i) => {
 					const modifier = Math.floor((stat - 10) / 2)
-					return <td className={classes.cell}>{stat} ({modifier >= 0 ? '+' : ''}{modifier})</td>
+					return (
+						<td
+							className={classes.cell}
+							key={i}>
+							{stat} ({modifier >= 0 ? '+' : ''}{modifier})
+						</td>
+					)
 				})}
 			</tr>
+			</tbody>
 		</table>
 	)
 }

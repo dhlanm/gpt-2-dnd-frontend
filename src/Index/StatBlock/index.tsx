@@ -41,12 +41,12 @@ const useStyles = makeStyles(() =>
 			backgroundRepeat: 'repeat-y',
 		},
 		taperedRule: {
-			fill: '#922610',
-			/* Stroke is necessary for good antialiasing in Chrome. */
-			stroke: '#922610',
-			width: '100%',
 			marginTop: '0.6em',
 			marginBottom: '0.35em',
+			backgroundColor: '#922610',
+			width: '100%',
+			height: 5,
+			clipPath: 'polygon(0 0, 0% 100%, 100% 50%)',
 		},
 	}),
 )
@@ -54,9 +54,7 @@ const useStyles = makeStyles(() =>
 const TaperedRule: React.FC = () => {
 	const classes = useStyles()
 	return (
-		<svg height="5" width="400" className={classes.taperedRule}>
-			<polyline points="0,0 400,2.5 0,5" />
-		</svg>
+		<div className={classes.taperedRule} />
 	)
 }
 
@@ -77,7 +75,7 @@ const StatBlock: React.FC = () => {
 				<TaperedRule />
 				<InfoBlock />
 				<TaperedRule />
-				{spells.map(spell => <SpellcastingBlock {...spell} />)}
+				{spells.map(spell => <SpellcastingBlock {...spell} key={spell.name}/>)}
 				<ActionBlock />
 			</article>
 			<div className={classes.bar} />

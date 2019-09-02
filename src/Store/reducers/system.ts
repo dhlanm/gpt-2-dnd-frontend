@@ -1,27 +1,34 @@
-import { Action, LOAD_DATA, SET_JSON } from '../actions'
+import { Action, SET_LOADING, SET_ERROR, SET_JSON } from '../actions'
 
 export interface State {
 	loading: boolean,
 	jsonString: string,
+	error: boolean,
 }
 
 const initialState: State = {
 	loading: false,
 	jsonString: '',
+	error: false,
 }
 
 export default function system(state: State = initialState, action: Action): State {
 	switch (action.type) {
-		case LOAD_DATA:
+		case SET_LOADING:
 			return {
 				...state,
-				loading: true,
+				loading: action.payload,
 			}
 		case SET_JSON:
 			return {
-				loading: false,
+				...state,
 				jsonString: JSON.stringify(action.payload, null, 1)
 					.replace(/\s+/g, ' '),
+			}
+		case SET_ERROR:
+			return {
+				...state,
+				error: action.payload,
 			}
 	}
 	return state

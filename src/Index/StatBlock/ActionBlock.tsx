@@ -41,13 +41,15 @@ const ActionBlock: React.FC = () => {
 	return (
 		<>
 			{traits.length > 0 && traits.map(trait =>
-				<PropertyBlock title={trait.name}>{trait.entries.join('\n')}</PropertyBlock>,
+				<PropertyBlock title={trait.name} key={trait.name}>
+					{trait.entries.join('\n')}
+				</PropertyBlock>,
 			)}
 			{actions.length > 0 && (
 				<>
 					<ActionHeader>Actions</ActionHeader>
 					{actions.map(action =>
-						<PropertyBlock title={action.name}>
+						<PropertyBlock title={action.name} key={action.name}>
 							{action.entries.join('\n')}
 						</PropertyBlock>,
 					)}
@@ -57,7 +59,7 @@ const ActionBlock: React.FC = () => {
 				<>
 					<ActionHeader>Reactions</ActionHeader>
 					{reactions.map(reaction =>
-						<PropertyLine title={reaction.name} color="black">
+						<PropertyLine title={reaction.name} color="black" key={reaction.name}>
 							{reaction.entries.join('\n')}
 						</PropertyLine>,
 					)}
@@ -68,7 +70,7 @@ const ActionBlock: React.FC = () => {
 					<ActionHeader>Legendary Actions</ActionHeader>
 					<LegendaryInfo />
 					{legendary.map(legendary =>
-						<PropertyLine title={legendary.name} color="black">
+						<PropertyLine title={legendary.name} color="black" key={legendary.name}>
 							{legendary.entries.join('\n')}
 						</PropertyLine>,
 					)}

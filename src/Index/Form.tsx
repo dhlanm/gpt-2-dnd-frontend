@@ -50,8 +50,12 @@ function Form(): React.ReactElement {
 
 	const onSubmit = useCallback(e => {
 		e.preventDefault()
-		dispatch(loadData({name, type, size, temp}))
-	}, [dispatch, name, type, size, temp])
+		const data = new URLSearchParams()
+		for (const [key, value] of new FormData(e.target)) {
+			data.append(key, value as string)
+		}
+		dispatch(loadData(data))
+	}, [dispatch])
 
 	const loading = useSelector(selectLoading)
 
@@ -67,6 +71,7 @@ function Form(): React.ReactElement {
 			<TextField
 				fullWidth
 				id="name"
+				name="name"
 				disabled={loading}
 				label="Monster Name"
 				margin="normal"
@@ -98,6 +103,7 @@ function Form(): React.ReactElement {
 			<TextField
 				fullWidth
 				id="type"
+				name="type"
 				label="Monster Type"
 				margin="normal"
 				disabled={loading}
@@ -127,6 +133,7 @@ function Form(): React.ReactElement {
 					className={classes.tempTextField}
 					margin="dense"
 					variant="outlined"
+					name="temp"
 					disabled={loading}
 					value={temp}
 					onChange={onTempInputChange}

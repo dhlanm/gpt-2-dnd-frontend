@@ -1,4 +1,4 @@
-import { combineReducers, createStore } from 'redux'
+import { combineReducers, createStore, applyMiddleware } from 'redux'
 import abilities from './reducers/abilities'
 import action from './reducers/action'
 import info from './reducers/info'
@@ -6,8 +6,11 @@ import spellCasting from './reducers/spellCasting'
 import statHeader from './reducers/statHeader'
 import system from './reducers/system'
 import topStats from './reducers/topStats'
-import { JsonPayload, setJson } from './actions'
+import { Action, JsonPayload, setJson } from './actions'
 import { SAMPLE_MONSTER } from './Sample'
+import thunk, { ThunkAction } from 'redux-thunk'
+
+export type ThunkResult<R> = ThunkAction<R, AppState, null, Action>
 
 const rootReducer = combineReducers({
 	abilities,
@@ -19,9 +22,9 @@ const rootReducer = combineReducers({
 	topStats,
 })
 
-const Store = createStore(rootReducer)
+const Store = createStore(rootReducer, applyMiddleware(thunk))
 
-export type AppState = ReturnType<typeof rootReducer>;
+export type AppState = ReturnType<typeof rootReducer>
 
 Store.dispatch(setJson(SAMPLE_MONSTER as JsonPayload))
 

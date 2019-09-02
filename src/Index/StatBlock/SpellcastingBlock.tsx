@@ -13,13 +13,13 @@ const SpellcastingBlock: React.FC<Spell> = props => {
 		if (props.daily != null) {
 			daily = Object.entries(props.daily).map(([day, spells]) => {
 				const dayNumber = day.lastIndexOf('e') !== -1 ? day.slice(0, day.length - 1) : day
-				return <p>{dayNumber}/day each: {spells.join(', ')}</p>
+				return <p key={dayNumber}>{dayNumber}/day each: {spells.join(', ')}</p>
 			})
 		}
 	} else if (props.spells != null) {
 		slots = Object.entries(props.spells).map(([level, spell]) => level === '0'
-			? <p>Cantrips (at will): {spell.spells.join(', ')}</p>
-			: <p>{nth(+level)} level ({spell.slots} slots): {spell.spells.join(', ')}</p>,
+			? <p key={level}>Cantrips (at will): {spell.spells.join(', ')}</p>
+			: <p key={level}>{nth(+level)} level ({spell.slots} slots): {spell.spells.join(', ')}</p>,
 		)
 	}
 	return (

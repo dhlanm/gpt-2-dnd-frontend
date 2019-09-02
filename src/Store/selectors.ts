@@ -17,6 +17,11 @@ export const selectLoading = createSelector(
 	defaultCombiner,
 )
 
+export const selectError = createSelector(
+	(state: AppState) => state.system.error,
+	defaultCombiner,
+)
+
 export const selectActions = createSelector(
 	(state: AppState) => state.action,
 	defaultCombiner,

@@ -15,6 +15,7 @@ const useStyles = makeStyles(() =>
 			right: 0,
 			bottom: 0,
 			backgroundColor: '#000000B0',
+			zIndex: 10,
 		},
 		message: {
 			textAlign: 'center',
