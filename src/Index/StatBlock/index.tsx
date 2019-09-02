@@ -1,5 +1,6 @@
 import React from 'react'
 import AbilitiesBlock, { Props as AbilitiesProps } from './AbilitiesBlock'
+import ActionBlock, { Props as ActionProps } from './ActionBlock'
 import InfoBlock, { Props as InfoProps } from './InfoBlock'
 import StatHeader, { Props as StatHeaderProps } from './StatHeader'
 import SpellcastingBlock, { Spell } from './SpellcastingBlock'
@@ -43,14 +44,6 @@ const useStyles = makeStyles(() =>
 			marginTop: '0.6em',
 			marginBottom: '0.35em',
 		},
-		actionHeader: {
-			color: '#7A200D',
-			fontSize: 20,
-			fontVariant: 'small-caps',
-			fontWeight: 'normal',
-			margin: 0,
-			borderBottom: 'solid 2px #922510',
-		},
 	}),
 )
 
@@ -63,21 +56,9 @@ const TaperedRule: React.FC = () => {
 	)
 }
 
-const ActionHeader: React.FC = props => {
-	const classes = useStyles()
-	return <h5 className={classes.actionHeader}>{props.children}</h5>
-}
-
-export interface NamedEntry {
-	name: string,
-	entries: string[],
-}
-
-type Props = StatHeaderProps & TopStatsProps & InfoProps & {
+type Props = StatHeaderProps & TopStatsProps & InfoProps & ActionProps & {
 	abilities: AbilitiesProps
-
 	spellcasting?: Spell[]
-	actions?: NamedEntry[]
 }
 
 const StatBlock: React.FC<Props> = props => {
@@ -96,9 +77,7 @@ const StatBlock: React.FC<Props> = props => {
 				<TaperedRule />
 				{props.spellcasting && props.spellcasting.map(spell =>
 					<SpellcastingBlock {...spell} />)}
-				{props.actions && (
-					<ActionHeader>Actions</ActionHeader>
-				)}
+				<ActionBlock {...props} />
 			</article>
 			<div className={classes.bar} />
 		</>
