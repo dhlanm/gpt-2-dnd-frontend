@@ -16,8 +16,8 @@ const useStyles = makeStyles(() =>
 		},
 		subtitle: {
 			fontStyle: 'italic',
-			fontSize: '0.9rem',
-			fontWeight: 'bold',
+			fontSize: '0.85rem',
+			fontWeight: 'normal',
 			margin: 0,
 		},
 	}),

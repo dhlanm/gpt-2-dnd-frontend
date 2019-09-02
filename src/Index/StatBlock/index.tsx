@@ -2,26 +2,31 @@ import React from 'react'
 import AbilitiesBlock from './AbilitiesBlock'
 import ActionBlock from './ActionBlock'
 import InfoBlock from './InfoBlock'
+import LoadingOverlay from '../LoadingOverlay'
 import StatHeader from './StatHeader'
 import SpellcastingBlock from './SpellcastingBlock'
 import TopStats from './TopStats'
 import { createStyles, makeStyles } from '@material-ui/core'
-import parchment from './parchment.png'
 import { useSelector } from 'react-redux'
 import { selectLoading, selectSpells } from '../../Store/selectors'
-import LoadingOverlay from '../LoadingOverlay'
+import parchment from './parchment.png'
+import bar from './bar.png'
 
 const useStyles = makeStyles(() =>
 	createStyles({
 		bar: {
 			height: 5,
 			background: '#E69A28',
+			backgroundImage: `url(${bar})`,
+			backgroundSize: 'auto 100%',
+			backgroundRepeat: 'repeat-x',
+			backgroundPositionX: Math.round(Math.random() * 512),
 			border: '1px solid #000',
 			zIndex: 1,
 		},
 		content: {
 			fontFamily: '"Noto Sans", "Myriad Pro", Calibri, Helvetica, Arial, sans-serif',
-			fontSize: 13.5,
+			fontSize: '0.85rem',
 			padding: '0.6em',
 			paddingBottom: '0.5em',
 			border: '1px #DDD solid',
@@ -39,6 +44,7 @@ const useStyles = makeStyles(() =>
 			backgroundColor: '#FDF1DC',
 			backgroundSize: '100% auto',
 			backgroundRepeat: 'repeat-y',
+			backgroundPositionY: Math.round(Math.random() * 600),
 		},
 		taperedRule: {
 			marginTop: '0.6em',

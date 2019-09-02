@@ -1,10 +1,19 @@
 import React, { useCallback } from 'react'
-import { Snackbar } from '@material-ui/core'
+import { createStyles, makeStyles, Snackbar, SnackbarContent } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectError } from './Store/selectors'
 import { clearError } from './Store/actions'
 
+const useStyles = makeStyles(theme =>
+	createStyles({
+		error: {
+			backgroundColor: theme.palette.error.dark,
+		},
+	}),
+)
+
 const ErrorSnackbar: React.FC = () => {
+	const classes = useStyles()
 	const error = useSelector(selectError)
 	const dispatch = useDispatch()
 	const onClose = useCallback(() => dispatch(clearError()), [dispatch])
@@ -18,11 +27,13 @@ const ErrorSnackbar: React.FC = () => {
 			open={error}
 			autoHideDuration={4000}
 			onClose={onClose}
-			ContentProps={{
-				'aria-describedby': 'message-id',
-			}}
-			message={<span id="message-id">Error occurred, please try again.</span>}
-		/>
+		>
+			<SnackbarContent
+				className={classes.error}
+				aria-describedby="client-snackbar"
+				message={<span id="client-snackbar">Error occurred, please try again.</span>}
+			/>
+		</Snackbar>
 	)
 }
 

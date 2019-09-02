@@ -16,6 +16,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { loadData } from '../Store/actions'
 import { selectLoading } from '../Store/selectors'
+import { paperStyles } from '../App'
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -30,6 +31,20 @@ const useStyles = makeStyles(() =>
 		},
 		tempInput: {
 			width: '5em',
+		},
+		select: {
+			'&>div[role="document"]': {
+				backgroundColor: '#F6EFDA',
+				'&:before': {
+					...paperStyles,
+					content: '""',
+					position: 'absolute',
+					top: 0,
+					left: 0,
+					right: 0,
+					bottom: 0,
+				},
+			},
 		},
 	}),
 )
@@ -88,6 +103,9 @@ function Form(): React.ReactElement {
 				<Select
 					displayEmpty
 					input={<FilledInput name="size" id="size" />}
+					MenuProps={{
+						className: classes.select,
+					}}
 					onChange={setSize}
 					value={size}
 				>
@@ -126,7 +144,7 @@ function Form(): React.ReactElement {
 					min={0}
 					max={1}
 					onChange={onTempSliderChange}
-					step={0.1}
+					step={0.05}
 					value={temp}
 				/>
 				<TextField
@@ -142,7 +160,7 @@ function Form(): React.ReactElement {
 						className: classes.tempInput,
 						max: 1,
 						min: 0,
-						step: 0.1,
+						step: 0.05,
 						type: 'number',
 						'aria-labelledby': 'temp-label',
 					}}
@@ -150,6 +168,7 @@ function Form(): React.ReactElement {
 			</Box>
 			<Button
 				color="primary"
+				fullWidth
 				className={classes.createButton}
 				disabled={loading}
 				type="submit"

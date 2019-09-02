@@ -9,10 +9,11 @@ const useStyles = makeStyles(() =>
 	createStyles({
 		actionHeader: {
 			color: '#7A200D',
-			fontSize: 20,
+			fontSize: '1.25rem',
 			fontVariant: 'small-caps',
 			fontWeight: 'normal',
-			margin: 0,
+			marginTop: 0,
+			marginBottom: 6,
 			borderBottom: 'solid 2px #922510',
 		},
 	}),

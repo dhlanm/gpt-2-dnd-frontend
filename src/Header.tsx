@@ -1,6 +1,14 @@
 import React from 'react'
 import { Link, LinkProps } from 'react-router-dom'
-import { AppBar, Button, createStyles, makeStyles, Toolbar, Typography } from '@material-ui/core'
+import {
+	AppBar,
+	Button,
+	createStyles,
+	Hidden,
+	makeStyles,
+	Toolbar,
+	Typography,
+} from '@material-ui/core'
 
 const AdapterLink = React.forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => (
 	<Link innerRef={ref as any} {...props} />
@@ -40,10 +48,15 @@ const Header: React.FC = () => {
 						GPT-2 5e Monster Generator
 					</Link>
 				</Typography>
-				<NavLink to="/">Generator</NavLink>
+				<Hidden xsDown><NavLink to="/">Generator</NavLink></Hidden>
 				<NavLink to="/about/">About</NavLink>
-				<Button href="https://github.com/dhlanm/gpt-2-dnd" color="inherit" target="_blank"
-				        rel="noopener">Github</Button>
+				<Button
+					href="https://github.com/dhlanm/gpt-2-dnd"
+					color="inherit"
+					target="_blank"
+					rel="noopener">
+					Github
+				</Button>
 			</Toolbar>
 		</AppBar>
 	)
