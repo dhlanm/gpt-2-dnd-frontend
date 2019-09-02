@@ -21,23 +21,23 @@ const useStyles = makeStyles(() =>
 	}),
 )
 
-const SIZE_TO_DESC: { [size: string]: string } = {
-	T: 'Tiny',
-	S: 'Small',
-	M: 'Medium',
-	L: 'Large',
-	H: 'Huge',
-	G: 'Gargantuan',
+enum SIZE_TO_DESC {
+	T = 'Tiny',
+	S = 'Small',
+	M = 'Medium',
+	L = 'Large',
+	H = 'Huge',
+	G = 'Gargantuan',
 }
 
-const ALIGNMENT_TO_DESC: { [alignment: string]: string } = {
-	A: 'any alignment',
-	C: 'chaotic',
-	E: 'evil',
-	G: 'good',
-	L: 'lawful',
-	N: 'neutral',
-	U: 'unaligned',
+enum ALIGNMENT_TO_DESC {
+	A = 'any alignment',
+	C = 'chaotic',
+	E = 'evil',
+	G = 'good',
+	L = 'lawful',
+	N = 'neutral',
+	U = 'unaligned',
 }
 
 type TagType = string | {
@@ -52,9 +52,9 @@ export type MonsterType = string | {
 
 export interface Props {
 	name: string
-	size: string
+	size: keyof typeof SIZE_TO_DESC
 	type: MonsterType
-	alignment: string[]
+	alignment: (keyof typeof ALIGNMENT_TO_DESC)[]
 }
 
 const formatType = (type: string, tags: TagType[]): string => {

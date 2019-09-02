@@ -1,9 +1,9 @@
 import React from 'react'
-import AbilitiesBlock, { Props as AbilitiesProps} from './AbilitiesBlock'
-import PropertyLine from './PropertyLine'
+import AbilitiesBlock, { Props as AbilitiesProps } from './AbilitiesBlock'
+import InfoBlock, { Props as InfoProps } from './InfoBlock'
 import StatHeader, { Props as StatHeaderProps } from './StatHeader'
 import SpellcastingBlock, { Spell } from './SpellcastingBlock'
-import TopStats, {Props as TopStatsProps} from './TopStats'
+import TopStats, { Props as TopStatsProps } from './TopStats'
 import { createStyles, makeStyles } from '@material-ui/core'
 import parchment from './parchment.png'
 
@@ -49,7 +49,7 @@ const useStyles = makeStyles(() =>
 			fontVariant: 'small-caps',
 			fontWeight: 'normal',
 			margin: 0,
-			borderBottom: 'solid 2px #922510'
+			borderBottom: 'solid 2px #922510',
 		},
 	}),
 )
@@ -73,7 +73,7 @@ export interface NamedEntry {
 	entries: string[],
 }
 
-type Props = StatHeaderProps & TopStatsProps & {
+type Props = StatHeaderProps & TopStatsProps & InfoProps & {
 	abilities: AbilitiesProps
 
 	spellcasting?: Spell[]
@@ -92,11 +92,7 @@ const StatBlock: React.FC<Props> = props => {
 				<TaperedRule />
 				<AbilitiesBlock {...props.abilities} />
 				<TaperedRule />
-				<PropertyLine title="Saving Throws">dex +7, con +9, int +5</PropertyLine>
-				<PropertyLine title="Damage Resistances">necrotic; bludgeoning, piercing, slashing
-					from nonmagical attacks that aren't silvered</PropertyLine>
-				<PropertyLine title="Languages">Common plus two more</PropertyLine>
-				<PropertyLine title="Challenge">9</PropertyLine>
+				<InfoBlock {...props} />
 				<TaperedRule />
 				{props.spellcasting && props.spellcasting.map(spell =>
 					<SpellcastingBlock {...spell} />)}

@@ -59,9 +59,9 @@ const Index: React.FC = () => {
 	const stats = {
 		name: SAMPLE_MONSTER.monster_name,
 		ac: SAMPLE_MONSTER.ac,
-		size: SAMPLE_MONSTER.size,
+		size: SAMPLE_MONSTER.size as 'L',
 		type: SAMPLE_MONSTER.type,
-		alignment: SAMPLE_MONSTER.alignment,
+		alignment: SAMPLE_MONSTER.alignment as ['A'],
 		spellcasting: SAMPLE_MONSTER.spellcasting,
 		hitpoints: SAMPLE_MONSTER.hp,
 		speed: SAMPLE_MONSTER.speed,
@@ -73,6 +73,13 @@ const Index: React.FC = () => {
 			wis: SAMPLE_MONSTER.wis,
 			cha: SAMPLE_MONSTER.cha,
 		},
+
+		// info
+		save: SAMPLE_MONSTER.save,
+		resist: SAMPLE_MONSTER.resist,
+		languages: SAMPLE_MONSTER.languages,
+		cr: SAMPLE_MONSTER.cr,
+
 		// named entries
 		traits: SAMPLE_MONSTER.trait,
 		actions: SAMPLE_MONSTER.action,
