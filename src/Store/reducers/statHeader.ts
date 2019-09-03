@@ -38,8 +38,8 @@ export interface State {
 }
 
 const initialState: State = {
-	name: '',
-	size: 'T',
+	name: '(Unnamed Monster)',
+	size: 'M',
 	type: '',
 	alignment: ['A'],
 }

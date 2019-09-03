@@ -77,9 +77,9 @@ const formatSpeed = (speed: SpeedType): string => Object.entries(speed)
 
 export const selectTopStats = createSelector(
 	(state: AppState) => state.topStats,
-	({ac, hitpoints, speed}) => ({
+	({ac, hitpoints: {average, formula}, speed}) => ({
 		ac: formatAc(ac as AcType),
-		hitpoints: `${hitpoints.average} (${hitpoints.formula})`,
+		hitpoints: `${average}${formula ? ` (${formula})` : ''}`,
 		speed: formatSpeed(speed),
 	}),
 )
@@ -104,12 +104,10 @@ export const selectStatHeader = createSelector(
 	}),
 )
 
-// Perform basic type check
+// Perform lenient type check that assumes `a` is only number/Array if `b` must be number/Array
 function isDifferentType(a: any, b: any): boolean {
-	const typeOfA = typeof a
 	return (a != null && b == null) ||
-		(typeOfA === 'number' && isNaN(parseInt(b))) ||
-		(typeOfA !== 'number' && typeOfA !== typeof b) ||
+		(typeof a === 'number' && isNaN(parseInt(b))) ||
 		(a instanceof Array && !(b instanceof Array))
 }
 

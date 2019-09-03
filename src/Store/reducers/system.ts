@@ -8,7 +8,7 @@ export interface State {
 
 const initialState: State = {
 	loading: false,
-	jsonString: '',
+	jsonString: '{}',
 	error: false,
 }
 

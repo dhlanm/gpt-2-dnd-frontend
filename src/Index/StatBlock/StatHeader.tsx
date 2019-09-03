@@ -29,7 +29,7 @@ const StatHeader: React.FC = () => {
 	return (
 		<>
 			<h1 className={classes.title}>{name}</h1>
-			<h2 className={classes.subtitle}>{sizeDesc} {typeDesc}, {alignmentDesc}</h2>
+			<h2 className={classes.subtitle}>{sizeDesc}{typeDesc ? ` ${typeDesc}` : ''}, {alignmentDesc}</h2>
 		</>
 	)
 }
