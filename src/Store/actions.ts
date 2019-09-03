@@ -4,6 +4,7 @@ import { InfoType } from './reducers/info'
 import { Spell } from './reducers/spellCasting'
 import { NamedEntry } from './reducers/action'
 import { ThunkResult } from './index'
+import dJSON from 'dirty-json'
 
 export interface JsonPayload {
 	// header
@@ -51,6 +52,7 @@ export interface JsonPayload {
 }
 
 export const SET_JSON = 'SET_JSON'
+export const SET_JSON_STRING = 'SET_JSON_STRING'
 export const SET_LOADING = 'LOAD_DATA'
 export const SET_ERROR = 'SET_ERROR'
 
@@ -60,6 +62,9 @@ export type Action = {
 } | {
 	type: typeof SET_JSON,
 	payload: JsonPayload,
+} | {
+	type: typeof SET_JSON_STRING,
+	payload: string,
 } | {
 	type: typeof SET_ERROR,
 	payload: boolean,
@@ -76,14 +81,28 @@ function serverError(): Action {
 	return {type: SET_ERROR, payload: true}
 }
 
+export function setJsonString(payload: string): Action {
+	return {type: SET_JSON_STRING, payload}
+}
+
 export function loadData(body: URLSearchParams): ThunkResult<void> {
 	return dispatch => {
 		dispatch(setLoading(true))
 
 		return fetch('create', {method: 'POST', body})
-			.then(res => res.json())
+			.then(res => res.text())
+			.then(text => {
+				// update json in UI even if json is malformed
+				dispatch(setJsonString(text))
+				try {
+					return JSON.parse(text)
+				} catch {
+					// attempt to parse with a lenient parser
+					return dJSON.parse(text)
+				}
+			})
 			.then(data => {
-				dispatch(setJson(data.json))
+				dispatch(setJson(data))
 				dispatch(setLoading(false))
 			})
 			.catch(() => {

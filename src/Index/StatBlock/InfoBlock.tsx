@@ -23,6 +23,7 @@ const InfoBlock: React.FC = () => {
 			{INFO_FIELDS.map(field => {
 				const info = stateInfo[field]
 				if (info == null) return null
+
 				const title = FIELD_TO_DESC[field]
 				if (info instanceof Array) {
 					if (info.length === 0) return null

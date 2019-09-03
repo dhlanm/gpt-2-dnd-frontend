@@ -1,4 +1,5 @@
 import { Action, SET_JSON } from '../actions'
+import { assignNonNull } from '../selectors'
 
 export interface NamedEntry {
 	name: string
@@ -32,11 +33,11 @@ export default function action(state: State = initialState, action: Action): Sta
 		legendary,
 	} = action.payload
 
-	return {
-		legendaryActions: legendaryActions || initialState.legendaryActions,
-		traits: traits || initialState.traits,
-		actions: actions || initialState.actions,
-		reactions: reactions || initialState.reactions,
-		legendary: legendary || initialState.legendary,
-	}
+	return assignNonNull(initialState, {
+		legendaryActions,
+		traits,
+		actions,
+		reactions,
+		legendary,
+	})
 }

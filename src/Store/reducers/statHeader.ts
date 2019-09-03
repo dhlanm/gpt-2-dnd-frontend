@@ -1,4 +1,5 @@
 import { Action, SET_JSON } from '../actions'
+import { assignNonNull } from '../selectors'
 
 export enum SIZE_TO_DESC {
 	T = 'Tiny',
@@ -47,10 +48,10 @@ export default function statHeader(state: State = initialState, action: Action):
 	if (action.type !== SET_JSON) return state
 
 	const {monster_name: name, size, type, alignment} = action.payload
-	return {
+	return assignNonNull(initialState, {
 		name,
 		size,
 		type,
-		alignment
-	}
+		alignment,
+	})
 }

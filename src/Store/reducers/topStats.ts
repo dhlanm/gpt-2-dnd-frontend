@@ -1,4 +1,5 @@
 import { Action, SET_JSON } from '../actions'
+import { assignNonNull } from '../selectors'
 
 export interface AcModifier {
 	ac: number
@@ -33,9 +34,9 @@ export default function topStats(state: State = initialState, action: Action): S
 	if (action.type !== SET_JSON) return state
 
 	const {ac, hp: hitpoints, speed} = action.payload
-	return {
+	return assignNonNull(initialState, {
 		ac,
 		hitpoints,
 		speed,
-	}
+	})
 }

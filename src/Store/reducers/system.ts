@@ -1,9 +1,9 @@
-import { Action, SET_LOADING, SET_ERROR, SET_JSON } from '../actions'
+import { Action, SET_LOADING, SET_ERROR, SET_JSON_STRING } from '../actions'
 
 export interface State {
-	loading: boolean,
-	jsonString: string,
-	error: boolean,
+	loading: boolean
+	jsonString: string
+	error: boolean
 }
 
 const initialState: State = {
@@ -19,11 +19,10 @@ export default function system(state: State = initialState, action: Action): Sta
 				...state,
 				loading: action.payload,
 			}
-		case SET_JSON:
+		case SET_JSON_STRING:
 			return {
 				...state,
-				jsonString: JSON.stringify(action.payload, null, 1)
-					.replace(/\s+/g, ' '),
+				jsonString: action.payload,
 			}
 		case SET_ERROR:
 			return {

@@ -90,7 +90,7 @@ const formatType = (type: string, tags: TagType[]): string => {
 	if (type.includes('swarmSize')) return type
 	if (tags.length === 0) return type
 	return `${type} (${tags.map(
-		tag => typeof tag === 'string' ? tag : `${tag.prefix} ${tag.tag}`
+		tag => typeof tag === 'string' ? tag : `${tag.prefix} ${tag.tag}`,
 	).join(', ')})`
 }
 
@@ -103,3 +103,30 @@ export const selectStatHeader = createSelector(
 		alignmentDesc: alignment.map(a => ALIGNMENT_TO_DESC[a]).join(' '),
 	}),
 )
+
+// Perform basic type check
+function isDifferentType(a: any, b: any): boolean {
+	const typeOfA = typeof a
+	return (a != null && b == null) ||
+		(typeOfA === 'number' && isNaN(parseInt(b))) ||
+		(typeOfA !== 'number' && typeOfA !== typeof b) ||
+		(a instanceof Array && !(b instanceof Array))
+}
+
+export function assignNonNull<T extends {}, S extends { [key in keyof T]?: unknown }>(
+	target: T,
+	source: S,
+): T {
+	return Object.entries(target)
+		.map(([key, targetValue]) => {
+			const sourceValue = (source as any)[key]
+			if (isDifferentType(targetValue, sourceValue)) {
+				return [key, targetValue] as [string, unknown]
+			}
+			return [key, sourceValue] as [string, unknown]
+		})
+		.reduce((acc, [key, value]) => {
+			acc[key] = value
+			return acc
+		}, {} as any) as T
+}

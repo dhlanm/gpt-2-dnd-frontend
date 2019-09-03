@@ -1,12 +1,13 @@
 import { Action, SET_JSON } from '../actions'
+import { assignNonNull } from '../selectors'
 
 export interface State {
-	str: number,
-	dex: number,
-	con: number,
-	int: number,
-	wis: number,
-	cha: number,
+	str: number
+	dex: number
+	con: number
+	int: number
+	wis: number
+	cha: number
 }
 
 const initialState: State = {
@@ -20,6 +21,5 @@ const initialState: State = {
 
 export default function abilities(state: State = initialState, action: Action): State {
 	if (action.type !== SET_JSON) return state
-	const {str, dex, con, int, wis, cha} = action.payload
-	return {str, dex, con, int, wis, cha}
+	return assignNonNull(initialState, action.payload)
 }

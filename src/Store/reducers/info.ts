@@ -1,4 +1,5 @@
 import { Action, SET_JSON } from '../actions'
+import { assignNonNull } from '../selectors'
 
 export const INFO_FIELDS = [
 	'save',
@@ -44,26 +45,5 @@ const initialState = {
 export default function info(state: State = initialState, action: Action): State {
 	if (action.type !== SET_JSON) return state
 
-	const {
-		save,
-		skill,
-		vulnerable,
-		resist,
-		immune,
-		conditionImmune,
-		senses,
-		languages,
-		cr,
-	} = action.payload
-	return {
-		save: save || initialState.save,
-		skill: skill || initialState.skill,
-		vulnerable: vulnerable || initialState.vulnerable,
-		resist: resist || initialState.resist,
-		immune: immune || initialState.immune,
-		conditionImmune: conditionImmune || initialState.conditionImmune,
-		senses: senses || initialState.senses,
-		languages: languages || initialState.languages,
-		cr: cr || initialState.cr,
-	}
+	return assignNonNull(initialState, action.payload)
 }

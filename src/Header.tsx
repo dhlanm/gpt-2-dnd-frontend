@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, LinkProps } from 'react-router-dom'
+import { Link, NavLink, NavLinkProps } from 'react-router-dom'
 import {
 	AppBar,
 	Button,
@@ -9,10 +9,7 @@ import {
 	Toolbar,
 	Typography,
 } from '@material-ui/core'
-
-const AdapterLink = React.forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => (
-	<Link innerRef={ref as any} {...props} />
-))
+import { grey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -26,14 +23,23 @@ const useStyles = makeStyles(() =>
 		button: {
 			marginRight: 12,
 		},
+		activeRoute: {
+			color: grey[500],
+		},
 	}),
 )
 
-const NavLink: React.FC<{ to: string }> = props => {
+const AdapterLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>((props, ref) => {
 	const classes = useStyles()
+	return <NavLink innerRef={ref as any} activeClassName={classes.activeRoute} {...props} />
+})
+
+const NavLinkButton: React.FC<NavLinkProps> = props => {
+	const classes = useStyles()
+	const {children, ...linkProps} = props
 	return (
-		<Button component={AdapterLink} to={props.to} color="inherit" className={classes.button}>
-			{props.children}
+		<Button component={AdapterLink} {...linkProps} color="inherit" className={classes.button}>
+			{children}
 		</Button>
 	)
 }
@@ -48,8 +54,8 @@ const Header: React.FC = () => {
 						GPT-2 5e Monster Generator
 					</Link>
 				</Typography>
-				<Hidden xsDown><NavLink to="/">Generator</NavLink></Hidden>
-				<NavLink to="/about/">About</NavLink>
+				<Hidden xsDown><NavLinkButton exact to="/">Generator</NavLinkButton></Hidden>
+				<NavLinkButton to="/about/">About</NavLinkButton>
 				<Button
 					href="https://github.com/dhlanm/gpt-2-dnd"
 					color="inherit"

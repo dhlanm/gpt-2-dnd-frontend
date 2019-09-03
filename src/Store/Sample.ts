@@ -41,9 +41,9 @@ export const SAMPLE_MONSTER = Object.freeze({
 		name: 'Spellcasting',
 		headerEntries: ['The spectator is a 14th-level spellcaster. Its spellcasting ability is Wisdom (spell save 15, 7 to hit with spell attacks). The spectator has the following cleric spells prepared:'],
 		spells: {
-			0: {'spells': ['light', 'sacred flame', 'thaumaturgy']},
-			1: {'slots': 4, 'spells': ['bane', 'cure wounds', 'guiding bolt']},
-			2: {'slots': 2, 'spells': ['hold person', 'spiritual weapon']},
+			0: {spells: ['light', 'sacred flame', 'thaumaturgy']},
+			1: {slots: 4, spells: ['bane', 'cure wounds', 'guiding bolt']},
+			2: {slots: 2, spells: ['hold person', 'spiritual weapon']},
 		},
 		ability: 'wis',
 	}],
