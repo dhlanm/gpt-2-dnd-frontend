@@ -67,7 +67,7 @@ export type Action = {
 	payload: string,
 } | {
 	type: typeof SET_ERROR,
-	payload: boolean,
+	payload: string | null,
 }
 
 function setLoading(payload: boolean): Action {
@@ -77,8 +77,8 @@ function setLoading(payload: boolean): Action {
 	}
 }
 
-function serverError(): Action {
-	return {type: SET_ERROR, payload: true}
+function serverError(payload: string): Action {
+	return {type: SET_ERROR, payload}
 }
 
 export function setJsonString(payload: string): Action {
@@ -90,7 +90,10 @@ export function loadData(body: URLSearchParams): ThunkResult<void> {
 		dispatch(setLoading(true))
 
 		return fetch('create', {method: 'POST', body})
-			.then(res => res.text())
+			.then(res => {
+				if (res.status > 400) throw new Error(`${res.statusText} (${res.status})`)
+				return res.text()
+			})
 			.then(text => {
 				// update json in UI even if json is malformed
 				dispatch(setJsonString(text))
@@ -105,15 +108,15 @@ export function loadData(body: URLSearchParams): ThunkResult<void> {
 				dispatch(setJson(data))
 				dispatch(setLoading(false))
 			})
-			.catch(() => {
-				dispatch(serverError())
+			.catch((e: Error) => {
+				dispatch(serverError(e.message))
 				dispatch(setLoading(false))
 			})
 	}
 }
 
 export function clearError(): Action {
-	return {type: SET_ERROR, payload: false}
+	return {type: SET_ERROR, payload: null}
 }
 
 export function setJson(payload: JsonPayload): Action {

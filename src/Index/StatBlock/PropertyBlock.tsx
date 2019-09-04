@@ -10,10 +10,11 @@ const useStyles = makeStyles(() =>
 			display: 'block',
 		},
 		title: {
-			margin: 0,
 			display: 'inline',
-			fontWeight: 'bold',
+			fontSize: 'inherit',
 			fontStyle: 'italic',
+			fontWeight: 'bold',
+			margin: 0,
 			'&+p': {
 				display: 'inline',
 				textIndent: 0,
@@ -26,11 +27,19 @@ const useStyles = makeStyles(() =>
 	}),
 )
 
-const PropertyBlock: React.FC<{ title: string }> = props => {
+interface Props {
+	title: string
+}
+
+const PropertyBlock: React.FC<Props> = props => {
 	const classes = useStyles()
+	const {title, children} = props
+	const titleTrimmed = title.trim()
 	return (
 		<div className={classes.propertyBlock}>
-			<h4 className={classes.title}>{props.title}</h4> {props.children}
+			<h4 className={classes.title}>
+				{titleTrimmed.endsWith('.') ? titleTrimmed : titleTrimmed + '.'}
+			</h4> {children}
 		</div>
 	)
 }

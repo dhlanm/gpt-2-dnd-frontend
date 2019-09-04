@@ -31,7 +31,7 @@ const useStyles = makeStyles(() =>
 
 const AdapterLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>((props, ref) => {
 	const classes = useStyles()
-	return <NavLink innerRef={ref as any} activeClassName={classes.activeRoute} {...props} />
+	return <NavLink innerRef={ref} activeClassName={classes.activeRoute} {...props} />
 })
 
 const NavLinkButton: React.FC<NavLinkProps> = props => {

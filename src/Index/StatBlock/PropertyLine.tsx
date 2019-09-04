@@ -1,5 +1,6 @@
 import React from 'react'
 import { createStyles, makeStyles } from '@material-ui/core'
+import clsx from 'clsx'
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -23,9 +24,10 @@ interface Props {
 
 const PropertyLine: React.FC<Props> = props => {
 	const classes = useStyles()
+	const {children, color, title} = props
 	return (
-		<p className={`${classes.root} ${props.color === 'red' ? classes.red : ''}`}>
-			<b>{props.title}</b> {props.children}
+		<p className={clsx(classes.root, color === 'red' && classes.red)}>
+			<b>{title.trim()}</b> {children}
 		</p>
 	)
 }

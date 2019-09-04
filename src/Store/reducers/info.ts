@@ -30,7 +30,7 @@ export interface State {
 	cr: InfoType | null
 }
 
-const initialState = {
+const initialState: State = {
 	save: null,
 	skill: null,
 	vulnerable: null,

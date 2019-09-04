@@ -52,26 +52,29 @@ export const selectSpells = createSelector(
 
 // Top Stats
 
-type AcType = [number] | [number, AcModifier] | [AcModifier]
+type AcType = [number | string | AcModifier] | [number | string, AcModifier]
 
 const formatAc = (ac: AcType): string => {
 	const [first, second] = ac
-	if (typeof first !== 'number') {
-		const modifier = first
+	const maybeNumber = parseInt(first as string)
+	if (isNaN(maybeNumber)) {
+		const modifier = first as AcModifier
 		const fromList = modifier['from'] || (modifier.condition && [modifier.condition]) || null
 
 		if (fromList == null) return `${modifier.ac}`
-		return `${modifier.ac} (${fromList.join(', ')})`
+		return `${modifier.ac} (${fromList.map(s => s.trim()).join(', ')})`
 	}
 
-	const acNumber = first
+	const acNumber = maybeNumber
 	const acModifier = second as AcModifier
 
 	if (acModifier == null) return `${acNumber}`
-	return `${acNumber} (${acModifier.ac} ${acModifier.condition})`
+	const {ac: modifier, condition} = acModifier
+	return `${acNumber} (${modifier} ${condition ? condition.trim() : ''})`
 }
 
 const formatSpeed = (speed: SpeedType): string => Object.entries(speed)
+	.map(([type, feet]) => [type.trim(), feet])
 	.map(([type, feet]) => type === 'walk' ? `${feet}ft` : `${type} ${feet}ft`)
 	.join(', ')
 
@@ -79,7 +82,7 @@ export const selectTopStats = createSelector(
 	(state: AppState) => state.topStats,
 	({ac, hitpoints: {average, formula}, speed}) => ({
 		ac: formatAc(ac as AcType),
-		hitpoints: `${average}${formula ? ` (${formula})` : ''}`,
+		hitpoints: `${average}${formula ? ` (${formula.trim()})` : ''}`,
 		speed: formatSpeed(speed),
 	}),
 )
@@ -111,20 +114,17 @@ function isDifferentType(a: any, b: any): boolean {
 		(a instanceof Array && !(b instanceof Array))
 }
 
-export function assignNonNull<T extends {}, S extends { [key in keyof T]?: unknown }>(
-	target: T,
-	source: S,
-): T {
-	return Object.entries(target)
-		.map(([key, targetValue]) => {
-			const sourceValue = (source as any)[key]
+export function assignNonNull<T extends {}>(target: T, source: Partial<T>): T {
+	return (Object.entries(target) as [keyof T, T[keyof T]][])
+		.map(([key, targetValue]): [keyof T, T[keyof T]] => {
+			const sourceValue = source[key]
 			if (isDifferentType(targetValue, sourceValue)) {
-				return [key, targetValue] as [string, unknown]
+				return [key, targetValue]
 			}
-			return [key, sourceValue] as [string, unknown]
+			return [key, sourceValue!]
 		})
 		.reduce((acc, [key, value]) => {
 			acc[key] = value
 			return acc
-		}, {} as any) as T
+		}, {} as T)
 }

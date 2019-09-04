@@ -3,13 +3,13 @@ import { Action, SET_LOADING, SET_ERROR, SET_JSON_STRING } from '../actions'
 export interface State {
 	loading: boolean
 	jsonString: string
-	error: boolean
+	error: string | null
 }
 
 const initialState: State = {
 	loading: false,
 	jsonString: '{}',
-	error: false,
+	error: null,
 }
 
 export default function system(state: State = initialState, action: Action): State {
