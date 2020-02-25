@@ -45,7 +45,7 @@ export interface JsonPayload {
 
 	// actions
 	legendaryActions?: number
-	traits?: NamedEntry[]
+	trait?: NamedEntry[]
 	action?: NamedEntry[]
 	reactions?: NamedEntry[]
 	legendary?: NamedEntry[]

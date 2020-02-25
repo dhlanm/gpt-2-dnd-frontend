@@ -27,7 +27,7 @@ export default function action(state: State = initialState, action: Action): Sta
 
 	const {
 		legendaryActions,
-		traits,
+		trait: traits,
 		action: actions,
 		reactions,
 		legendary,
