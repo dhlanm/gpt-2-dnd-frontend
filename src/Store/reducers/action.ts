@@ -29,7 +29,7 @@ export default function action(state: State = initialState, action: Action): Sta
 		legendaryActions,
 		trait: traits,
 		action: actions,
-		reactions,
+		reaction: reactions,
 		legendary,
 	} = action.payload
 

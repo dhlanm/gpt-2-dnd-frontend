@@ -51,7 +51,7 @@ const ActionBlock: React.FC = () => {
 					<ActionHeader>Actions</ActionHeader>
 					{actions.map(action =>
 						<PropertyBlock title={action.name} key={action.name}>
-							{action.entries.join('\n')}
+							{action.entries && action.entries.join('\n')}
 						</PropertyBlock>,
 					)}
 				</>

@@ -30,7 +30,7 @@ const ErrorSnackbar: React.FC = () => {
 				horizontal: 'right',
 			}}
 			open={error != null}
-			autoHideDuration={4000}
+			autoHideDuration={60000}
 			onClose={onClose}
 		>
 			<SnackbarContent
