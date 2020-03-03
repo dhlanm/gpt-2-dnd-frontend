@@ -133,7 +133,7 @@ function Form(): React.ReactElement {
 				name="type"
 				label="Monster Type"
 				margin="normal"
-				disabled={loading}
+				disabled={loading || name === ''}
 				onChange={setType}
 				placeholder="Generate Automatically"
 				value={type}
@@ -142,7 +142,7 @@ function Form(): React.ReactElement {
 					shrink: true,
 				}}
 			/>
-			<FormControl disabled={loading} variant="filled" margin="normal" fullWidth>
+			<FormControl disabled={loading || type === ''} variant="filled" margin="normal" fullWidth>
 				<InputLabel htmlFor="size" shrink={true}>Challenge Rating</InputLabel>
 				<Select
 					displayEmpty
@@ -158,7 +158,7 @@ function Form(): React.ReactElement {
 					))}
 				</Select>
 			</FormControl>
-			<FormControl disabled={loading} variant="filled" margin="normal" fullWidth>
+			<FormControl disabled={loading || challenge === ''} variant="filled" margin="normal" fullWidth>
 				<InputLabel htmlFor="size" shrink={true}>Size</InputLabel>
 				<Select
 					displayEmpty
@@ -178,7 +178,7 @@ function Form(): React.ReactElement {
 					<MenuItem value="G">Gargantuan</MenuItem>
 				</Select>
 			</FormControl>
-			<FormControl disabled={loading} variant="filled" margin="normal" fullWidth>
+			<FormControl disabled={loading || size === ''} variant="filled" margin="normal" fullWidth>
 				<InputLabel htmlFor="size" shrink={true}>Alignment</InputLabel>
 				<Select
 					displayEmpty
