@@ -10,11 +10,17 @@ import {
 	Typography,
 } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
+import header from './header.svg'
 
 const useStyles = makeStyles(() =>
 	createStyles({
 		title: {
 			flexGrow: 1,
+		},
+		header: {
+			marginLeft: -20,
+			marginBottom: -12,
+			height: 64,
 		},
 		home: {
 			color: 'inherit',
@@ -51,7 +57,7 @@ const Header: React.FC = () => {
 			<Toolbar>
 				<Typography variant="h6" className={classes.title}>
 					<Link to="/" className={classes.home}>
-						GPT-2 5e Monster Generator
+						<img src={header} className={classes.header} alt="ink" />
 					</Link>
 				</Typography>
 				<Hidden xsDown><NavLinkButton exact to="/">Generator</NavLinkButton></Hidden>
