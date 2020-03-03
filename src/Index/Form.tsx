@@ -49,6 +49,33 @@ const useStyles = makeStyles(() =>
 	}),
 )
 
+const CHALLENGE_RATINGS = [
+	{
+		value: '',
+		label: 'Generate Automatically',
+	},
+	{
+		value: 0,
+		label: '0',
+	}, {
+		value: 0.125,
+		label: '1/8',
+	}, {
+		value: 0.25,
+		label: '1/4',
+	}, {
+		value: 0.5,
+		label: '1/2',
+	},
+]
+
+for (let i = 1; i <= 30; i++) {
+	CHALLENGE_RATINGS.push({
+		value: i,
+		label: `${i}`,
+	})
+}
+
 function useField<T>(initialState: T): [T, React.ChangeEventHandler<{ value: unknown }>] {
 	const [value, setValue] = useState(initialState)
 	const callback = useCallback(({target: {value: v}}) => value !== v && setValue(v), [value])
@@ -59,7 +86,9 @@ function Form(): React.ReactElement {
 	const classes = useStyles()
 	const [name, setName] = useField('')
 	const [type, setType] = useField('')
+	const [challenge, setChallenge] = useField('')
 	const [size, setSize] = useField('')
+	const [alignment, setAlignment] = useField('')
 	const [temp, setTemp] = useState(0.8)
 	const dispatch = useDispatch()
 
@@ -98,6 +127,37 @@ function Form(): React.ReactElement {
 					shrink: true,
 				}}
 			/>
+			<TextField
+				fullWidth
+				id="type"
+				name="type"
+				label="Monster Type"
+				margin="normal"
+				disabled={loading}
+				onChange={setType}
+				placeholder="Generate Automatically"
+				value={type}
+				variant="filled"
+				InputLabelProps={{
+					shrink: true,
+				}}
+			/>
+			<FormControl disabled={loading} variant="filled" margin="normal" fullWidth>
+				<InputLabel htmlFor="size" shrink={true}>Challenge Rating</InputLabel>
+				<Select
+					displayEmpty
+					input={<FilledInput name="size" id="size" />}
+					MenuProps={{
+						className: classes.select,
+					}}
+					onChange={setChallenge}
+					value={challenge}
+				>
+					{CHALLENGE_RATINGS.map(({value, label}) => (
+						<MenuItem value={value}>{label}</MenuItem>
+					))}
+				</Select>
+			</FormControl>
 			<FormControl disabled={loading} variant="filled" margin="normal" fullWidth>
 				<InputLabel htmlFor="size" shrink={true}>Size</InputLabel>
 				<Select
@@ -118,21 +178,29 @@ function Form(): React.ReactElement {
 					<MenuItem value="G">Gargantuan</MenuItem>
 				</Select>
 			</FormControl>
-			<TextField
-				fullWidth
-				id="type"
-				name="type"
-				label="Monster Type"
-				margin="normal"
-				disabled={loading}
-				onChange={setType}
-				placeholder="Generate Automatically"
-				value={type}
-				variant="filled"
-				InputLabelProps={{
-					shrink: true,
-				}}
-			/>
+			<FormControl disabled={loading} variant="filled" margin="normal" fullWidth>
+				<InputLabel htmlFor="size" shrink={true}>Alignment</InputLabel>
+				<Select
+					displayEmpty
+					input={<FilledInput name="size" id="size" />}
+					MenuProps={{
+						className: classes.select,
+					}}
+					onChange={setAlignment}
+					value={alignment}
+				>
+					<MenuItem value="">Generate Automatically</MenuItem>
+					<MenuItem value="LG">Lawful Good</MenuItem>
+					<MenuItem value="NG">Neutral Good</MenuItem>
+					<MenuItem value="CG">Chaotic Good</MenuItem>
+					<MenuItem value="LN">Lawful Neutral</MenuItem>
+					<MenuItem value="NN">True Neutral</MenuItem>
+					<MenuItem value="CN">Chaotic Neutral</MenuItem>
+					<MenuItem value="LE">Chaotic Evil</MenuItem>
+					<MenuItem value="NE">Neutral Evil</MenuItem>
+					<MenuItem value="CE">Chaotic Evil</MenuItem>
+				</Select>
+			</FormControl>
 			<Typography id="temp-label" gutterBottom>
 				Temperature
 			</Typography>
