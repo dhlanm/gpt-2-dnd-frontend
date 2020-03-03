@@ -49,31 +49,10 @@ const useStyles = makeStyles(() =>
 	}),
 )
 
-const CHALLENGE_RATINGS = [
-	{
-		value: '',
-		label: 'Generate Automatically',
-	},
-	{
-		value: 0,
-		label: '0',
-	}, {
-		value: 0.125,
-		label: '1/8',
-	}, {
-		value: 0.25,
-		label: '1/4',
-	}, {
-		value: 0.5,
-		label: '1/2',
-	},
-]
+const CHALLENGE_RATINGS = ['0', '1/8', '1/4', '1/2']
 
 for (let i = 1; i <= 30; i++) {
-	CHALLENGE_RATINGS.push({
-		value: i,
-		label: `${i}`,
-	})
+	CHALLENGE_RATINGS.push(`${i}`)
 }
 
 function useField<T>(initialState: T): [T, React.ChangeEventHandler<{ value: unknown }>] {
@@ -153,8 +132,9 @@ function Form(): React.ReactElement {
 					onChange={setChallenge}
 					value={challenge}
 				>
-					{CHALLENGE_RATINGS.map(({value, label}) => (
-						<MenuItem value={value}>{label}</MenuItem>
+					<MenuItem value="">Generate Automatically</MenuItem>
+					{CHALLENGE_RATINGS.map(rating => (
+						<MenuItem key={rating} value={rating}>{rating}</MenuItem>
 					))}
 				</Select>
 			</FormControl>
