@@ -74,8 +74,14 @@ const formatAc = (ac: AcType): string => {
 }
 
 const formatSpeed = (speed: SpeedType): string => Object.entries(speed)
-	.map(([type, feet]) => [type.trim(), feet])
-	.map(([type, feet]) => type === 'walk' ? `${feet}ft` : `${type} ${feet}ft`)
+	.filter(([_, feet]) => typeof feet !== 'boolean')
+	.map(([rawType, feet]) => {
+		const type = rawType.trim()
+		const feetNumber = typeof feet === 'object' ? feet.number : feet
+		const condition = typeof feet === 'object' && feet.condition != null ? ` ${feet.condition.trim()}` : ''
+		const prefix = type === 'walk' ? `${feetNumber}ft.` : `${type} ${feetNumber}ft.`
+		return `${prefix}${condition}`
+	})
 	.join(', ')
 
 export const selectTopStats = createSelector(
