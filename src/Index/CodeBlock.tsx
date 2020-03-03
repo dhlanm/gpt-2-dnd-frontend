@@ -99,7 +99,7 @@ const useStyles = makeStyles(() =>
 
 // https://stackoverflow.com/questions/400212/
 function fallbackCopyTextToClipboard(text: string) {
-	const textArea = document.createElement("textarea")
+	const textArea = document.createElement('textarea')
 	textArea.style.display = 'none'
 	textArea.value = text
 	document.body.appendChild(textArea)
@@ -108,10 +108,12 @@ function fallbackCopyTextToClipboard(text: string) {
 
 	try {
 		document.execCommand('copy')
-	} catch {}
+	} catch {
+	}
 
 	document.body.removeChild(textArea)
 }
+
 function copyTextToClipboard(text: string) {
 	if (!navigator.clipboard) {
 		fallbackCopyTextToClipboard(text)

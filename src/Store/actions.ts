@@ -89,10 +89,10 @@ export function loadData(body: URLSearchParams): ThunkResult<void> {
 	return dispatch => {
 		dispatch(setLoading(true))
 
-        return fetch('/create', {method: 'POST', body})
+		return fetch('/create', {method: 'POST', body})
 			.then(res => {
-                if (res.status > 400) throw new Error(`${res.statusText} (${res.status})`)
-                console.log(res)
+				if (res.status > 400) throw new Error(`${res.statusText} (${res.status})`)
+				console.log(res)
 				return res.text()
 			})
 			.then(text => {

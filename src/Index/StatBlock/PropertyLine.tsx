@@ -13,7 +13,7 @@ const useStyles = makeStyles(() =>
 		},
 		red: {
 			color: '#7A200D',
-		}
+		},
 	}),
 )
 
@@ -33,7 +33,7 @@ const PropertyLine: React.FC<Props> = props => {
 }
 
 PropertyLine.defaultProps = {
-	color: 'red'
+	color: 'red',
 }
 
 export default PropertyLine

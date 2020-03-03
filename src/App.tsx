@@ -58,7 +58,7 @@ const useStyles = makeStyles(() =>
 	}),
 )
 
-const NoMatch: React.FC = () => <Redirect to="/"/>
+const NoMatch: React.FC = () => <Redirect to="/" />
 
 const App: React.FC = () => {
 	const classes = useStyles()
@@ -75,9 +75,9 @@ const App: React.FC = () => {
 						</Switch>
 					</Container>
 					<ErrorSnackbar />
-					<div className={classes.paper}/>
-					<Hidden xsDown><img src={ink1} className={classes.ink1} alt="ink"/></Hidden>
-					<img src={ink2} className={classes.ink2} alt="ink"/>
+					<div className={classes.paper} />
+					<Hidden xsDown><img src={ink1} className={classes.ink1} alt="ink" /></Hidden>
+					<img src={ink2} className={classes.ink2} alt="ink" />
 				</Provider>
 			</ThemeProvider>
 		</Router>

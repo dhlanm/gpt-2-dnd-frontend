@@ -1,4 +1,4 @@
-import { Action, SET_LOADING, SET_ERROR, SET_JSON_STRING } from '../actions'
+import { Action, SET_ERROR, SET_JSON_STRING, SET_LOADING } from '../actions'
 
 export interface State {
 	loading: boolean

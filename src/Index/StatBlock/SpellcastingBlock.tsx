@@ -19,7 +19,8 @@ const SpellcastingBlock: React.FC<Spell> = props => {
 	} else if (props.spells != null) {
 		slots = Object.entries(props.spells).map(([level, spell]) => level === '0'
 			? <p key={level}>Cantrips (at will): {spell.spells.join(', ')}</p>
-			: <p key={level}>{nth(+level)} level ({spell.slots} slots): {spell.spells.join(', ')}</p>,
+			:
+			<p key={level}>{nth(+level)} level ({spell.slots} slots): {spell.spells.join(', ')}</p>,
 		)
 	}
 	return (

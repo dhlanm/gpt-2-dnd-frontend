@@ -42,12 +42,12 @@ export default function spellCasting(state: State = initialState, action: Action
 		const {daily, spells} = spell
 		if (daily != null) {
 			Object.entries(daily).forEach(([key, value]) =>
-				daily[key] = value.map(s => s.trim())
+				daily[key] = value.map(s => s.trim()),
 			)
 		}
 		if (spells != null) {
 			Object.values(spells).forEach(value =>
-				value.spells = value.spells.map(s => s.trim())
+				value.spells = value.spells.map(s => s.trim()),
 			)
 		}
 	})

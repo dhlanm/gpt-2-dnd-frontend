@@ -81,7 +81,7 @@ const StatBlock: React.FC = () => {
 				<TaperedRule />
 				<InfoBlock />
 				<TaperedRule />
-				{spells.map(spell => <SpellcastingBlock {...spell} key={spell.name}/>)}
+				{spells.map(spell => <SpellcastingBlock {...spell} key={spell.name} />)}
 				<ActionBlock />
 			</article>
 			<div className={classes.bar} />

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import 'whatwg-fetch'
-import 'promise-polyfill/src/polyfill';
+import 'promise-polyfill/src/polyfill'
 import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(<App />, document.getElementById('root'))
