@@ -35,11 +35,23 @@ const PropertyBlock: React.FC<Props> = props => {
 	const classes = useStyles()
 	const {title, children} = props
 	const titleTrimmed = title.trim()
+	let body = children
+	if (typeof children === 'string' && children?.split(' ')[2] === 'Attack') {
+		// Super hacky code to italicize weapon attack text
+		const split = children.split(' ')
+		body = (
+			<>
+				<i>{split.slice(0, 3).join(' ')}</i>
+				{' '}
+				{split.slice(3).join(' ')}
+			</>
+		)
+	}
 	return (
 		<div className={classes.propertyBlock}>
 			<h4 className={classes.title}>
 				{titleTrimmed.endsWith('.') ? titleTrimmed : titleTrimmed + '.'}
-			</h4> {children}
+			</h4> {body}
 		</div>
 	)
 }

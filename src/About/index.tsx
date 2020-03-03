@@ -1,18 +1,29 @@
 import React from 'react'
 import { createStyles, Link as MaterialLink, makeStyles, Typography } from '@material-ui/core'
+import clsx from 'clsx'
 
 const useStyles = makeStyles(() =>
 	createStyles({
 		title: {
 			color: '#7A200D',
 			borderBottom: 'solid 2px #922510',
-			fontVariant: 'small-caps',
+			fontFamily: 'Mr Eaves',
 		},
 		paragraph: {
+			fontFamily: 'Bookinsanity',
 			marginTop: '1em',
 			marginBottom: '1em',
 			lineHeight: 1.3,
 		},
+		dropCap: {
+			'&:first-letter': {
+				color: '#61543C',
+				fontFamily: 'Solbera Imitation',
+				fontSize: '3em',
+				lineHeight: '0.5em',
+				float: 'left',
+			}
+		}
 	}),
 )
 
@@ -25,35 +36,35 @@ const Title: React.FC = props => {
 	return <Typography variant="h5" className={classes.title}>{props.children}</Typography>
 }
 
-const Paragraph: React.FC = props => {
+const Paragraph: React.FC<{dropCap?: boolean}> = props => {
 	const classes = useStyles()
-	return <Typography variant="body1" className={classes.paragraph}>{props.children}</Typography>
+	return <Typography variant="body1" className={clsx(classes.paragraph, props.dropCap ? classes.dropCap : false)}>{props.children}</Typography>
 }
 
 const About: React.FC = () => (
 	<>
 		<Title>Overview</Title>
-		<Paragraph>
+		<Paragraph dropCap>
 			This generator creates monsters for <Link
 			href="https://dnd.wizards.com/dungeons-and-dragons/what-is-dd">5th edition Dungeons and
 			Dragons</Link> using <Link href="https://openai.com/blog/better-language-models/">OpenAI's
 			GPT-2 model</Link>. I was inspired by <Link href="https://minimaxir.com/apps/gpt2-mtg/">minimaxir's
 			Magic Card Generator</Link> and based the project off of his <Link
 			href="https://github.com/minimaxir/gpt-2-simple">GPT-2 package</Link>. Be sure to check
-			both out as they're very cool.
+			both out as they’re very cool.
 		</Paragraph>
 
 		<Title>Data Sources</Title>
-		<Paragraph>
+		<Paragraph dropCap>
 			The data for this project is based off of <Link href="https://5e.tools">5e
-			tools</Link>' bestiary, which is in well-formatted JSON. GPT-2 handles JSON impressively
+			tools</Link>’ bestiary, which is in well-formatted JSON. GPT-2 handles JSON impressively
 			well, and manages to output valid JSON about 80% of the time at high temperatures, and
 			closer to 100% of the time at low ones.
 		</Paragraph>
 		<Paragraph>
 			I was unsatisfied with only using official data, so I also
 			attempted to scrape <Link href="https://www.dndbeyond.com/homebrew/monsters">D&D
-			Beyond's
+			Beyond’s
 			homebrew monsters</Link>. I only took the ones with a rating of 1 or higher (the
 			generated results are zany enough without including such monsters as the "Big Funny").
 			Conversion from the homebrew monster data to JSON can occasionally be incorrect, which
@@ -74,7 +85,7 @@ const About: React.FC = () => (
 		</Paragraph>
 
 		<Title>Length Patch</Title>
-		<Paragraph>
+		<Paragraph dropCap>
 			The reason that HTML would need to be spaced as such, and the
 			reason that the JSON is in the current model, is due to a technique this project uses
 			for generating complete monster objects.. GPT-2 is not a fully open-sourced model, and
@@ -85,18 +96,20 @@ const About: React.FC = () => (
 			generated text, until a stop token is reached. This solution works, but means that the
 			code necessarily loses context. For instance, I seed the name of the monster in a few
 			places in the text to prevent gpt-2 from losing it. In a similar manner, the JSON stays
-			well formatted because of the context of whitespace, as it's very rare that the
+			well formatted because of the context of whitespace, as it’s very rare that the
 			generator has the context of the opening bracket by the time it reaches the closing one.
 		</Paragraph>
 
 		<Title>Prettification</Title>
-		<Paragraph>
+		<Paragraph dropCap>
 			Huge thanks to <Link href="https://github.com/el1t">Ellis Tsung</Link> for redoing the
-			UI for me and making it into something beautiful. I'm deeply impressed by his
+			UI for me and making it into something beautiful. I’m deeply impressed by his
 			fastidiousness in matching the design to official 5e material. You might also want to
-			check out <Link href="https://github.com/Valloric/statblock5e">Valloric's 5e
+			check out <Link href="https://github.com/Valloric/statblock5e">Valloric’s 5e
 			statblocks</Link>,
-			which he based the design of the statblocks off of.
+			which he based the design of the statblocks off of. This site uses Solbera’s wonderful
+			<Link href="https://old.reddit.com/r/UnearthedArcana/comments/3vpphx/">CC-BY-SA-4.0
+			fonts</Link>.
 		</Paragraph>
 	</>
 )

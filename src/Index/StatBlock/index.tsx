@@ -25,7 +25,7 @@ const useStyles = makeStyles(() =>
 			zIndex: 1,
 		},
 		content: {
-			fontFamily: '"Noto Sans", "Myriad Pro", Calibri, Helvetica, Arial, sans-serif',
+			fontFamily: '"Scaly Sans", sans-serif',
 			fontSize: '0.85rem',
 			padding: '0.6em',
 			paddingBottom: '0.5em',

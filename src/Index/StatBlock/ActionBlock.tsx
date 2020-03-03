@@ -10,7 +10,7 @@ const useStyles = makeStyles(() =>
 		actionHeader: {
 			color: '#7A200D',
 			fontSize: '1.25rem',
-			fontVariant: 'small-caps',
+			fontFamily: 'Scaly Sans Sc',
 			fontWeight: 'normal',
 			marginTop: 0,
 			marginBottom: 6,
@@ -51,7 +51,7 @@ const ActionBlock: React.FC = () => {
 					<ActionHeader>Actions</ActionHeader>
 					{actions.map(action =>
 						<PropertyBlock title={action.name} key={action.name}>
-							{action.entries && action.entries.join('\n')}
+							{action.entries?.join('\n')}
 						</PropertyBlock>,
 					)}
 				</>
