@@ -9,7 +9,7 @@ export interface AcModifier {
 }
 
 export interface SpeedType {
-	[type: string]: number | {number: number, condition?: string} | boolean
+	[type: string]: number | { number: number, condition?: string } | boolean
 }
 
 export interface State {

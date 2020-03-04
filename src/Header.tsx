@@ -57,7 +57,8 @@ const Header: React.FC = () => {
 			<Toolbar>
 				<Typography variant="h6" className={classes.title}>
 					<Link to="/" className={classes.home}>
-						<img src={header} className={classes.header} alt="GPT-2 5e Monster Generator" />
+						<img src={header} className={classes.header}
+						     alt="GPT-2 5e Monster Generator" />
 					</Link>
 				</Typography>
 				<Hidden xsDown><NavLinkButton exact to="/">Generator</NavLinkButton></Hidden>

@@ -121,7 +121,8 @@ function Form(): React.ReactElement {
 					shrink: true,
 				}}
 			/>
-			<FormControl disabled={loading || type === ''} variant="filled" margin="normal" fullWidth>
+			<FormControl disabled={loading || type === ''} variant="filled" margin="normal"
+			             fullWidth>
 				<InputLabel htmlFor="cr" shrink={true}>Challenge Rating</InputLabel>
 				<Select
 					displayEmpty
@@ -138,7 +139,8 @@ function Form(): React.ReactElement {
 					))}
 				</Select>
 			</FormControl>
-			<FormControl disabled={loading || challenge === ''} variant="filled" margin="normal" fullWidth>
+			<FormControl disabled={loading || challenge === ''} variant="filled" margin="normal"
+			             fullWidth>
 				<InputLabel htmlFor="size" shrink={true}>Size</InputLabel>
 				<Select
 					displayEmpty
@@ -158,7 +160,8 @@ function Form(): React.ReactElement {
 					<MenuItem value="G">Gargantuan</MenuItem>
 				</Select>
 			</FormControl>
-			<FormControl disabled={loading || size === ''} variant="filled" margin="normal" fullWidth>
+			<FormControl disabled={loading || size === ''} variant="filled" margin="normal"
+			             fullWidth>
 				<InputLabel htmlFor="alignment" shrink={true}>Alignment</InputLabel>
 				<Select
 					displayEmpty
@@ -179,7 +182,7 @@ function Form(): React.ReactElement {
 					<MenuItem value="LE">Lawful Evil</MenuItem>
 					<MenuItem value="NE">Neutral Evil</MenuItem>
 					<MenuItem value="CE">Chaotic Evil</MenuItem>
-                    <MenuItem value="U">Unaligned</MenuItem>
+					<MenuItem value="U">Unaligned</MenuItem>
 					<MenuItem value="A">Any Alignment</MenuItem>
 				</Select>
 			</FormControl>
