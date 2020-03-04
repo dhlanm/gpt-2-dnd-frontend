@@ -4,6 +4,7 @@ import PropertyBlock from './PropertyBlock'
 import PropertyLine from './PropertyLine'
 import { useSelector } from 'react-redux'
 import { selectActions, selectLegendaryInfo } from '../../Store/selectors'
+import { NamedEntry } from '../../Store/reducers/action'
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -15,6 +16,43 @@ const useStyles = makeStyles(() =>
 			marginTop: 0,
 			marginBottom: 6,
 			borderBottom: 'solid 2px #922510',
+		},
+		bulletList: {
+			marginLeft: '1em',
+			margin: 0,
+			padding: 0,
+		},
+		bulletListItem: {
+			marginTop: '0.3em',
+			marginLeft: '0.75em',
+			margin: 0,
+			padding: 0,
+			'&:before': {
+				content: '""',
+				display: 'inline-block',
+				marginLeft: '-0.25em',
+			}
+		},
+		hangingParagraph: {
+			marginTop: '0.3em',
+			lineHeight: '1.5',
+			display: 'block',
+			paddingLeft: '1em',
+			textIndent: '-1em',
+		},
+		hangingParagraphTitle: {
+			display: 'inline',
+			fontSize: 'inherit',
+			fontWeight: 'bold',
+			margin: 0,
+			'&+p': {
+				display: 'inline',
+				textIndent: 0,
+			},
+			'&~p': {
+				textIndent: '1em',
+				margin: 0,
+			},
 		},
 	}),
 )
@@ -36,6 +74,47 @@ const LegendaryInfo: React.FC = () => {
 	)
 }
 
+const HangingParagraph: React.FC<{ title: string }> = ({title, children}) => {
+	const titleTrimmed = title.trim()
+	const classes = useStyles()
+	return (
+		<div className={classes.hangingParagraph}>
+			<h4 className={classes.hangingParagraphTitle}>{titleTrimmed}</h4> {children}
+		</div>
+	)
+}
+
+const EntryText: React.FC<{ entries: NamedEntry['entries'] }> = ({entries = []}) => {
+	const classes = useStyles()
+	if (entries.length !== 2 || typeof entries[1] !== 'object') {
+		// normal string entries
+		return (
+			<>
+				{entries.join('\n')}
+			</>
+		)
+	}
+	// fancy entries
+	const [title, entryList] = entries
+	const list = entryList.style != null ? (
+		entryList.items.map(({name, entry}) => (
+			<HangingParagraph title={name}>{entry}</HangingParagraph>
+		))
+	) : (
+		<ul className={classes.bulletList}>
+			{entryList.items.map(item => (
+				<li className={classes.bulletListItem}>{`${item}`}</li>
+			))}
+		</ul>
+	)
+	return (
+		<>
+			{title}
+			{list}
+		</>
+	)
+}
+
 const ActionBlock: React.FC = () => {
 	const {traits, actions, reactions, legendary} = useSelector(selectActions)
 
@@ -43,7 +122,7 @@ const ActionBlock: React.FC = () => {
 		<>
 			{traits.length > 0 && traits.map(trait =>
 				<PropertyBlock title={trait.name} key={trait.name}>
-					{trait.entries.join('\n')}
+					<EntryText entries={trait.entries} />
 				</PropertyBlock>,
 			)}
 			{actions.length > 0 && (
@@ -51,7 +130,7 @@ const ActionBlock: React.FC = () => {
 					<ActionHeader>Actions</ActionHeader>
 					{actions.map(action =>
 						<PropertyBlock title={action.name} key={action.name}>
-							{action.entries?.join('\n')}
+							<EntryText entries={action.entries} />
 						</PropertyBlock>,
 					)}
 				</>
@@ -61,7 +140,7 @@ const ActionBlock: React.FC = () => {
 					<ActionHeader>Reactions</ActionHeader>
 					{reactions.map(reaction =>
 						<PropertyLine title={reaction.name} color="black" key={reaction.name}>
-							{reaction.entries.join('\n')}
+							<EntryText entries={reaction.entries} />
 						</PropertyLine>,
 					)}
 				</>
@@ -72,7 +151,7 @@ const ActionBlock: React.FC = () => {
 					<LegendaryInfo />
 					{legendary.map(legendary =>
 						<PropertyLine title={legendary.name} color="black" key={legendary.name}>
-							{legendary.entries.join('\n')}
+							<EntryText entries={legendary.entries} />
 						</PropertyLine>,
 					)}
 				</>
