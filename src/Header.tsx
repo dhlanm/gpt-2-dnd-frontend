@@ -12,15 +12,28 @@ import {
 import { grey } from '@material-ui/core/colors'
 import header from './header.svg'
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(theme =>
 	createStyles({
 		title: {
 			flexGrow: 1,
+			position: 'relative',
 		},
 		header: {
-			marginLeft: -20,
-			marginBottom: -12,
 			height: 64,
+			marginLeft: -18,
+			position: 'absolute',
+			top: 0,
+			transform: 'translateY(-50%)',
+			transition: 'opacity 100ms linear',
+			[theme.breakpoints.down('xs')]: {
+				height: 42,
+			},
+			'&:hover': {
+				opacity: 0.8,
+			},
+			'&:active': {
+				opacity: 0.7,
+			},
 		},
 		home: {
 			color: 'inherit',
