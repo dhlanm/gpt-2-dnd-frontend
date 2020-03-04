@@ -9,7 +9,7 @@ const useStyles = makeStyles(() =>
 		root: {
 			padding: '12px 0',
 			position: 'relative',
-			'&:before': {
+			'&:before, &:after': {
 				display: 'block',
 				position: 'absolute',
 				content: '""',
@@ -17,18 +17,13 @@ const useStyles = makeStyles(() =>
 				width: 0,
 				height: 0,
 				borderStyle: 'solid',
+			},
+			'&:before': {
 				borderWidth: '0 0 16px 24px',
 				borderColor: 'transparent transparent black transparent',
 			},
 			'&:after': {
-				display: 'block',
-				position: 'absolute',
 				right: 0,
-				top: 0,
-				content: '""',
-				width: 0,
-				height: 0,
-				borderStyle: 'solid',
 				borderWidth: '16px 0 0 24px',
 				borderColor: 'transparent transparent transparent black',
 			},
