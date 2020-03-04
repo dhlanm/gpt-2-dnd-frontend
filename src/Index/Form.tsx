@@ -122,10 +122,10 @@ function Form(): React.ReactElement {
 				}}
 			/>
 			<FormControl disabled={loading || type === ''} variant="filled" margin="normal" fullWidth>
-				<InputLabel htmlFor="size" shrink={true}>Challenge Rating</InputLabel>
+				<InputLabel htmlFor="cr" shrink={true}>Challenge Rating</InputLabel>
 				<Select
 					displayEmpty
-					input={<FilledInput name="size" id="size" />}
+					input={<FilledInput name="cr" id="cr" />}
 					MenuProps={{
 						className: classes.select,
 					}}
@@ -159,10 +159,10 @@ function Form(): React.ReactElement {
 				</Select>
 			</FormControl>
 			<FormControl disabled={loading || size === ''} variant="filled" margin="normal" fullWidth>
-				<InputLabel htmlFor="size" shrink={true}>Alignment</InputLabel>
+				<InputLabel htmlFor="alignment" shrink={true}>Alignment</InputLabel>
 				<Select
 					displayEmpty
-					input={<FilledInput name="size" id="size" />}
+					input={<FilledInput name="alignment" id="alignment" />}
 					MenuProps={{
 						className: classes.select,
 					}}
