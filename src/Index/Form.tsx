@@ -174,9 +174,9 @@ function Form(): React.ReactElement {
 					<MenuItem value="NG">Neutral Good</MenuItem>
 					<MenuItem value="CG">Chaotic Good</MenuItem>
 					<MenuItem value="LN">Lawful Neutral</MenuItem>
-					<MenuItem value="NN">True Neutral</MenuItem>
+					<MenuItem value="N">True Neutral</MenuItem>
 					<MenuItem value="CN">Chaotic Neutral</MenuItem>
-					<MenuItem value="LE">Chaotic Evil</MenuItem>
+					<MenuItem value="LE">Lawful Evil</MenuItem>
 					<MenuItem value="NE">Neutral Evil</MenuItem>
 					<MenuItem value="CE">Chaotic Evil</MenuItem>
                     <MenuItem value="U">Unaligned</MenuItem>

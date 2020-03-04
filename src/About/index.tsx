@@ -88,7 +88,7 @@ const About: React.FC = () => (
 		<Paragraph dropCap>
 			The reason that HTML would need to be spaced as such, and the
 			reason that the JSON is in the current model, is due to a technique this project uses
-			for generating complete monster objects.. GPT-2 is not a fully open-sourced model, and
+			for generating complete monster objects. GPT-2 is not a fully open-sourced model, and
 			was trained on Tensors of size 1024, so it can only generate blocks of text 1024 tokens
 			in size at a time. Taking inspiration from <Link
 			href="https://github.com/minimaxir/gpt-2-simple/pull/87">this pull request</Link>, I
@@ -108,9 +108,9 @@ const About: React.FC = () => (
 			fastidiousness in matching the design to official 5e material. You might also want to
 			check out <Link href="https://github.com/Valloric/statblock5e">Valloric’s 5e
 			statblocks</Link>,
-			which he based the design of the statblocks off of. This site uses Solbera’s wonderful 
-			<Link href="https://old.reddit.com/r/UnearthedArcana/comments/3vpphx/">CC-BY-SA-4.0
-			fonts</Link>.
+			which he based the design of the statblocks off of. This site uses Solbera’s 
+            wonderful <Link href="https://old.reddit.com/r/UnearthedArcana/comments/3vpphx/"> 
+            CC-BY-SA-4.0 fonts</Link>.
 		</Paragraph>
 	</>
 )
