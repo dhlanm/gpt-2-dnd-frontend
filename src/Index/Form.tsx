@@ -179,6 +179,8 @@ function Form(): React.ReactElement {
 					<MenuItem value="LE">Chaotic Evil</MenuItem>
 					<MenuItem value="NE">Neutral Evil</MenuItem>
 					<MenuItem value="CE">Chaotic Evil</MenuItem>
+                    <MenuItem value="U">Unaligned</MenuItem>
+					<MenuItem value="A">Any Alignment</MenuItem>
 				</Select>
 			</FormControl>
 			<Typography id="temp-label" gutterBottom>

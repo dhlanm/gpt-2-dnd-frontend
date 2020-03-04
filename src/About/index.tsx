@@ -69,9 +69,9 @@ const About: React.FC = () => (
 			generated results are zany enough without including such monsters as the "Big Funny").
 			Conversion from the homebrew monster data to JSON can occasionally be incorrect, which
 			may result in broken spellcasting blocks. If you notice issues during generation, this
-			may be the cause.. However, the inclusion of the data more than doubles the training
+			may be the cause. However, the inclusion of the data more than doubles the training
 			sample and helps prevent overfit. As a result, I have decided to keep it in. I also
-			wrote a sampler to only pull the homebrew data 30% of the time while training, which
+			wrote a sampler to only pull the homebrew data 35% of the time while training, which
 			mitigates these problems.
 		</Paragraph>
 		<Paragraph>
@@ -94,10 +94,11 @@ const About: React.FC = () => (
 			href="https://github.com/minimaxir/gpt-2-simple/pull/87">this pull request</Link>, I
 			modified the gpt_2_simple code to use previously generated text as context to newly
 			generated text, until a stop token is reached. This solution works, but means that the
-			code necessarily loses context. For instance, I seed the name of the monster in a few
-			places in the text to prevent gpt-2 from losing it. In a similar manner, the JSON stays
-			well formatted because of the context of whitespace, as it’s very rare that the
-			generator has the context of the opening bracket by the time it reaches the closing one.
+			code necessarily loses context. To help mitigate this, I seed the name of the monster in a few
+			places in the text which helps prevent gpt-2 from losing it entirely. In a similar manner, the 
+            JSON stays well formatted because of the context of whitespace (and the contantly-ordered tags),
+            as it’s often the case that the generator has lost context of the opening bracket by the time
+            it reaches the closing one.
 		</Paragraph>
 
 		<Title>Prettification</Title>
@@ -107,7 +108,7 @@ const About: React.FC = () => (
 			fastidiousness in matching the design to official 5e material. You might also want to
 			check out <Link href="https://github.com/Valloric/statblock5e">Valloric’s 5e
 			statblocks</Link>,
-			which he based the design of the statblocks off of. This site uses Solbera’s wonderful
+			which he based the design of the statblocks off of. This site uses Solbera’s wonderful 
 			<Link href="https://old.reddit.com/r/UnearthedArcana/comments/3vpphx/">CC-BY-SA-4.0
 			fonts</Link>.
 		</Paragraph>
