@@ -29,13 +29,13 @@ const ErrorSnackbar: React.FC = () => {
 				vertical: 'bottom',
 				horizontal: 'right',
 			}}
-			open={error != null}
 			autoHideDuration={60000}
 			onClose={onClose}
+			open={error != null}
 		>
 			<SnackbarContent
-				className={classes.error}
 				aria-describedby="client-snackbar"
+				className={classes.error}
 				message={<span id="client-snackbar">{message.current}</span>}
 			/>
 		</Snackbar>

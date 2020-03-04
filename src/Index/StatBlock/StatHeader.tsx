@@ -6,7 +6,8 @@ import { selectStatHeader } from '../../Store/selectors'
 const useStyles = makeStyles(() =>
 	createStyles({
 		title: {
-			fontFamily: '"Libre Baskerville", "Lora", "Calisto MT", "Bookman Old Style", Bookman, "Goudy Old Style", Garamond, "Hoefler Text", "Bitstream Charter", Georgia, serif',
+			fontFamily:
+				'"Libre Baskerville", "Lora", "Calisto MT", "Bookman Old Style", Bookman, "Goudy Old Style", Garamond, "Hoefler Text", "Bitstream Charter", Georgia, serif',
 			color: '#7A200D',
 			fontWeight: 700,
 			margin: 0,
@@ -25,11 +26,14 @@ const useStyles = makeStyles(() =>
 
 const StatHeader: React.FC = () => {
 	const classes = useStyles()
-	const {name, sizeDesc, typeDesc, alignmentDesc} = useSelector(selectStatHeader)
+	const { name, sizeDesc, typeDesc, alignmentDesc } = useSelector(selectStatHeader)
 	return (
 		<>
 			<h1 className={classes.title}>{name}</h1>
-			<h2 className={classes.subtitle}>{sizeDesc}{typeDesc ? ` ${typeDesc}` : ''}, {alignmentDesc}</h2>
+			<h2 className={classes.subtitle}>
+				{sizeDesc}
+				{typeDesc ? ` ${typeDesc}` : ''}, {alignmentDesc}
+			</h2>
 		</>
 	)
 }

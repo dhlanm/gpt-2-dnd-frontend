@@ -27,7 +27,6 @@ const Store = createStore(rootReducer, applyMiddleware(thunk))
 export type AppState = ReturnType<typeof rootReducer>
 
 Store.dispatch(setJson(SAMPLE_MONSTER as JsonPayload))
-Store.dispatch(setJsonString(JSON.stringify(SAMPLE_MONSTER, null, 1)
-	.replace(/\s+/g, ' ')))
+Store.dispatch(setJsonString(JSON.stringify(SAMPLE_MONSTER, null, 1).replace(/\s+/g, ' ')))
 
 export default Store

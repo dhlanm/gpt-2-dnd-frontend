@@ -15,8 +15,8 @@ import ink2 from './ink2.png'
 
 const theme = createMuiTheme({
 	palette: {
-		primary: {main: '#7A200D'},
-		secondary: {main: grey[900]},
+		primary: { main: '#7A200D' },
+		secondary: { main: grey[900] },
 	},
 })
 
@@ -69,15 +69,17 @@ const App: React.FC = () => {
 					<Header />
 					<Container className={classes.container} component="main">
 						<Switch>
-							<Route path="/" exact component={Index} />
-							<Route path="/about/" component={About} />
+							<Route component={Index} exact path="/" />
+							<Route component={About} path="/about/" />
 							<Route component={NoMatch} />
 						</Switch>
 					</Container>
 					<ErrorSnackbar />
 					<div className={classes.paper} />
-					<Hidden xsDown><img src={ink1} className={classes.ink1} alt="ink" /></Hidden>
-					<img src={ink2} className={classes.ink2} alt="ink" />
+					<Hidden xsDown>
+						<img alt="ink" className={classes.ink1} src={ink1} />
+					</Hidden>
+					<img alt="ink" className={classes.ink2} src={ink2} />
 				</Provider>
 			</ThemeProvider>
 		</Router>

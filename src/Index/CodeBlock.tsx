@@ -108,8 +108,7 @@ function fallbackCopyTextToClipboard(text: string) {
 
 	try {
 		document.execCommand('copy')
-	} catch {
-	}
+	} catch {}
 
 	document.body.removeChild(textArea)
 }
@@ -120,8 +119,7 @@ function copyTextToClipboard(text: string) {
 		return
 	}
 
-	navigator.clipboard.writeText(text)
-		.catch(() => fallbackCopyTextToClipboard(text))
+	navigator.clipboard.writeText(text).catch(() => fallbackCopyTextToClipboard(text))
 }
 
 const CodeBlock: React.FC = () => {
@@ -131,10 +129,11 @@ const CodeBlock: React.FC = () => {
 	return (
 		<aside className={classes.root}>
 			<Button
-				color="primary"
 				className={classes.copy}
+				color="primary"
+				onClick={copyString}
 				variant="contained"
-				onClick={copyString}>
+			>
 				Copy
 			</Button>
 			<div className={classes.wrapper} />

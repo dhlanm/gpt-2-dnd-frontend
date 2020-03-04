@@ -7,15 +7,17 @@ interface EntryListEntry {
 	entry: string
 }
 
-type EntryList = {
-	type: 'list'
-	style: 'list-hang-notitle'
-	items: EntryListEntry[]
-} | {
-	type: 'list'
-	style: undefined
-	items: string[]
-}
+type EntryList =
+	| {
+			type: 'list'
+			style: 'list-hang-notitle'
+			items: EntryListEntry[]
+	  }
+	| {
+			type: 'list'
+			style: undefined
+			items: string[]
+	  }
 
 export interface NamedEntry {
 	name: string

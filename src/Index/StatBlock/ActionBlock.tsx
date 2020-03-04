@@ -31,7 +31,7 @@ const useStyles = makeStyles(() =>
 				content: '""',
 				display: 'inline-block',
 				marginLeft: '-0.25em',
-			}
+			},
 		},
 		hangingParagraph: {
 			marginTop: '0.3em',
@@ -63,18 +63,18 @@ const ActionHeader: React.FC = props => {
 }
 
 const LegendaryInfo: React.FC = () => {
-	const {name, legendaryActions} = useSelector(selectLegendaryInfo)
+	const { name, legendaryActions } = useSelector(selectLegendaryInfo)
 	return (
 		<p>
-			The {name} can take {legendaryActions || 3} legendary actions, choosing from
-			the options below. Only one legendary action option can be used at a time and only at
-			the end of another creature's turn. The {name} regains spent legendary actions at the
-			start of its turn.
+			The {name} can take {legendaryActions || 3} legendary actions, choosing from the options
+			below. Only one legendary action option can be used at a time and only at the end of
+			another creature’s turn. The {name} regains spent legendary actions at the start of its
+			turn.
 		</p>
 	)
 }
 
-const HangingParagraph: React.FC<{ title: string }> = ({title, children}) => {
+const HangingParagraph: React.FC<{ title: string }> = ({ title, children }) => {
 	const titleTrimmed = title.trim()
 	const classes = useStyles()
 	return (
@@ -84,29 +84,28 @@ const HangingParagraph: React.FC<{ title: string }> = ({title, children}) => {
 	)
 }
 
-const EntryText: React.FC<{ entries: NamedEntry['entries'] }> = ({entries = []}) => {
+const EntryText: React.FC<{ entries: NamedEntry['entries'] }> = ({ entries = [] }) => {
 	const classes = useStyles()
 	if (entries.length !== 2 || typeof entries[1] !== 'object') {
 		// normal string entries
-		return (
-			<>
-				{entries.join('\n')}
-			</>
-		)
+		return <>{entries.join('\n')}</>
 	}
 	// fancy entries
 	const [title, entryList] = entries
-	const list = entryList.style != null ? (
-		entryList.items.map(({name, entry}) => (
-			<HangingParagraph title={name}>{entry}</HangingParagraph>
-		))
-	) : (
-		<ul className={classes.bulletList}>
-			{entryList.items.map(item => (
-				<li className={classes.bulletListItem}>{`${item}`}</li>
-			))}
-		</ul>
-	)
+	const list =
+		entryList.style != null ? (
+			entryList.items.map(({ name, entry }) => (
+				<HangingParagraph key={name} title={name}>
+					{entry}
+				</HangingParagraph>
+			))
+		) : (
+			<ul className={classes.bulletList}>
+				{entryList.items.map((item, i) => (
+					<li className={classes.bulletListItem} key={i}>{`${item}`}</li>
+				))}
+			</ul>
+		)
 	return (
 		<>
 			{title}
@@ -116,44 +115,45 @@ const EntryText: React.FC<{ entries: NamedEntry['entries'] }> = ({entries = []})
 }
 
 const ActionBlock: React.FC = () => {
-	const {traits, actions, reactions, legendary} = useSelector(selectActions)
+	const { traits, actions, reactions, legendary } = useSelector(selectActions)
 
 	return (
 		<>
-			{traits.length > 0 && traits.map(trait =>
-				<PropertyBlock title={trait.name} key={trait.name}>
-					<EntryText entries={trait.entries} />
-				</PropertyBlock>,
-			)}
+			{traits.length > 0 &&
+				traits.map(trait => (
+					<PropertyBlock key={trait.name} title={trait.name}>
+						<EntryText entries={trait.entries} />
+					</PropertyBlock>
+				))}
 			{actions.length > 0 && (
 				<>
 					<ActionHeader>Actions</ActionHeader>
-					{actions.map(action =>
-						<PropertyBlock title={action.name} key={action.name}>
+					{actions.map(action => (
+						<PropertyBlock key={action.name} title={action.name}>
 							<EntryText entries={action.entries} />
-						</PropertyBlock>,
-					)}
+						</PropertyBlock>
+					))}
 				</>
 			)}
 			{reactions.length > 0 && (
 				<>
 					<ActionHeader>Reactions</ActionHeader>
-					{reactions.map(reaction =>
-						<PropertyLine title={reaction.name} color="black" key={reaction.name}>
+					{reactions.map(reaction => (
+						<PropertyLine color="black" key={reaction.name} title={reaction.name}>
 							<EntryText entries={reaction.entries} />
-						</PropertyLine>,
-					)}
+						</PropertyLine>
+					))}
 				</>
 			)}
 			{legendary.length > 0 && (
 				<>
 					<ActionHeader>Legendary Actions</ActionHeader>
 					<LegendaryInfo />
-					{legendary.map(legendary =>
-						<PropertyLine title={legendary.name} color="black" key={legendary.name}>
+					{legendary.map(legendary => (
+						<PropertyLine color="black" key={legendary.name} title={legendary.name}>
 							<EntryText entries={legendary.entries} />
-						</PropertyLine>,
-					)}
+						</PropertyLine>
+					))}
 				</>
 			)}
 		</>

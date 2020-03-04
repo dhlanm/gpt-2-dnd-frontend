@@ -25,30 +25,23 @@ function checkObject<T>(obj: T, accessor: (value: NonNullable<T>[keyof T]) => bo
 
 export default function spellCasting(state: State = initialState, action: Action): State {
 	if (action.type !== SET_JSON) return state
-	const newState = (action.payload.spellcasting || initialState)
-		.filter(spell =>
+	const newState = (action.payload.spellcasting || initialState).filter(
+		spell =>
 			spell != null &&
 			spell.name != null &&
 			spell.headerEntries instanceof Array &&
 			(spell.will == null || spell.will instanceof Array) &&
 			checkObject(spell.daily, value => value instanceof Array) &&
-			checkObject(
-				spell.spells,
-				value => value != null && value.spells instanceof Array,
-			),
-		)
+			checkObject(spell.spells, value => value != null && value.spells instanceof Array),
+	)
 
 	newState.forEach(spell => {
-		const {daily, spells} = spell
+		const { daily, spells } = spell
 		if (daily != null) {
-			Object.entries(daily).forEach(([key, value]) =>
-				daily[key] = value.map(s => s.trim()),
-			)
+			Object.entries(daily).forEach(([key, value]) => (daily[key] = value.map(s => s.trim())))
 		}
 		if (spells != null) {
-			Object.values(spells).forEach(value =>
-				value.spells = value.spells.map(s => s.trim()),
-			)
+			Object.values(spells).forEach(value => (value.spells = value.spells.map(s => s.trim())))
 		}
 	})
 

@@ -24,7 +24,7 @@ interface Props {
 
 const PropertyLine: React.FC<Props> = props => {
 	const classes = useStyles()
-	const {children, color, title} = props
+	const { children, color, title } = props
 	return (
 		<p className={clsx(classes.root, color === 'red' && classes.red)}>
 			<b>{title.trim()}</b> {children}

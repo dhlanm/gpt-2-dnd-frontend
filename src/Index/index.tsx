@@ -6,17 +6,16 @@ import StatBlock from './StatBlock/'
 
 const Index: React.FC = () => (
 	<Grid container spacing={6}>
-		<Grid item xs={12} sm={6} lg={4}>
+		<Grid item lg={4} sm={6} xs={12}>
 			<Form />
 		</Grid>
-		<Grid item xs={12} sm={6} lg={4}>
+		<Grid item lg={4} sm={6} xs={12}>
 			<StatBlock />
 		</Grid>
-		<Grid item xs={12} lg={4}>
+		<Grid item lg={4} xs={12}>
 			<CodeBlock />
 		</Grid>
 	</Grid>
 )
-
 
 export default Index

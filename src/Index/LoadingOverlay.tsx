@@ -66,9 +66,11 @@ const LoadingOverlay: React.FC = () => {
 	const isVisible = useTimeout(200)
 	return (
 		<div className={clsx(classes.root, isVisible ? classes.visible : classes.invisible)}>
-			<CircularProgress size={100} color="inherit" />
-			<Typography variant="subtitle1" className={classes.message}>
-				Loading...<br />(May take a minute or two)
+			<CircularProgress color="inherit" size={100} />
+			<Typography className={classes.message} variant="subtitle1">
+				Loading...
+				<br />
+				(May take a minute or two)
 			</Typography>
 		</div>
 	)

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { selectTopStats } from '../../Store/selectors'
 
 const TopStats: React.FC = () => {
-	const {ac, hitpoints, speed} = useSelector(selectTopStats)
+	const { ac, hitpoints, speed } = useSelector(selectTopStats)
 	return (
 		<>
 			<PropertyLine title="Armor Class">{ac}</PropertyLine>

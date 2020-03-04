@@ -20,15 +20,19 @@ export enum ALIGNMENT_TO_DESC {
 	U = 'unaligned',
 }
 
-export type TagType = string | {
-	prefix: string,
-	tag: string,
-}
+export type TagType =
+	| string
+	| {
+			prefix: string
+			tag: string
+	  }
 
-export type MonsterType = string | {
-	type: string,
-	tags?: TagType[],
-}
+export type MonsterType =
+	| string
+	| {
+			type: string
+			tags?: TagType[]
+	  }
 
 export interface State {
 	name: string
@@ -47,7 +51,7 @@ const initialState: State = {
 export default function statHeader(state: State = initialState, action: Action): State {
 	if (action.type !== SET_JSON) return state
 
-	const {monster_name: name, size, type, alignment} = action.payload
+	const { monster_name: name, size, type, alignment } = action.payload
 	return assignNonNull(initialState, {
 		name,
 		size,

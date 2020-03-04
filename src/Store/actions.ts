@@ -22,12 +22,12 @@ export interface JsonPayload {
 	speed: SpeedType
 
 	// abilities
-	str: number,
-	dex: number,
-	con: number,
-	int: number,
-	wis: number,
-	cha: number,
+	str: number
+	dex: number
+	con: number
+	int: number
+	wis: number
+	cha: number
 
 	// info
 	save?: InfoType
@@ -56,19 +56,23 @@ export const SET_JSON_STRING = 'SET_JSON_STRING'
 export const SET_LOADING = 'LOAD_DATA'
 export const SET_ERROR = 'SET_ERROR'
 
-export type Action = {
-	type: typeof SET_LOADING,
-	payload: boolean,
-} | {
-	type: typeof SET_JSON,
-	payload: JsonPayload,
-} | {
-	type: typeof SET_JSON_STRING,
-	payload: string,
-} | {
-	type: typeof SET_ERROR,
-	payload: string | null,
-}
+export type Action =
+	| {
+			type: typeof SET_LOADING
+			payload: boolean
+	  }
+	| {
+			type: typeof SET_JSON
+			payload: JsonPayload
+	  }
+	| {
+			type: typeof SET_JSON_STRING
+			payload: string
+	  }
+	| {
+			type: typeof SET_ERROR
+			payload: string | null
+	  }
 
 function setLoading(payload: boolean): Action {
 	return {
@@ -78,18 +82,18 @@ function setLoading(payload: boolean): Action {
 }
 
 function serverError(payload: string): Action {
-	return {type: SET_ERROR, payload}
+	return { type: SET_ERROR, payload }
 }
 
 export function setJsonString(payload: string): Action {
-	return {type: SET_JSON_STRING, payload}
+	return { type: SET_JSON_STRING, payload }
 }
 
 export function loadData(body: URLSearchParams): ThunkResult<void> {
 	return dispatch => {
 		dispatch(setLoading(true))
 
-		return fetch('/create', {method: 'POST', body})
+		return fetch('/create', { method: 'POST', body })
 			.then(res => {
 				if (res.status > 400) throw new Error(`${res.statusText} (${res.status})`)
 				return res.text()
@@ -116,7 +120,7 @@ export function loadData(body: URLSearchParams): ThunkResult<void> {
 }
 
 export function clearError(): Action {
-	return {type: SET_ERROR, payload: null}
+	return { type: SET_ERROR, payload: null }
 }
 
 export function setJson(payload: JsonPayload): Action {

@@ -33,7 +33,7 @@ interface Props {
 
 const PropertyBlock: React.FC<Props> = props => {
 	const classes = useStyles()
-	const {title, children} = props
+	const { title, children } = props
 	const titleTrimmed = title.trim()
 	let body = children
 	if (typeof children === 'string' && children?.split(' ')[2] === 'Attack') {
@@ -41,9 +41,7 @@ const PropertyBlock: React.FC<Props> = props => {
 		const split = children.split(' ')
 		body = (
 			<>
-				<i>{split.slice(0, 3).join(' ')}</i>
-				{' '}
-				{split.slice(3).join(' ')}
+				<i>{split.slice(0, 3).join(' ')}</i> {split.slice(3).join(' ')}
 			</>
 		)
 	}
@@ -51,7 +49,8 @@ const PropertyBlock: React.FC<Props> = props => {
 		<div className={classes.propertyBlock}>
 			<h4 className={classes.title}>
 				{titleTrimmed.endsWith('.') ? titleTrimmed : titleTrimmed + '.'}
-			</h4> {body}
+			</h4>{' '}
+			{body}
 		</div>
 	)
 }

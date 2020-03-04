@@ -29,38 +29,43 @@ const InfoBlock: React.FC = () => {
 					if (info.length === 0) return null
 
 					const last = info[info.length - 1]
-					if (typeof last === 'string') return (
-						<PropertyLine title={title} key={title}>
-							{info.join(', ')}
-						</PropertyLine>
-					)
+					if (typeof last === 'string')
+						return (
+							<PropertyLine key={title} title={title}>
+								{info.join(', ')}
+							</PropertyLine>
+						)
 
 					// bludgeoning, piercing, slashing from nonmagical
 					const notLast = info.slice(0, info.length - 1).join(', ')
 					const nonmagical = last[field]
-					if (nonmagical == null) return (
-						<PropertyLine title={title} key={title}>
-							{notLast}
-						</PropertyLine>
-					)
+					if (nonmagical == null)
+						return (
+							<PropertyLine key={title} title={title}>
+								{notLast}
+							</PropertyLine>
+						)
 					return (
-						<PropertyLine title={title} key={title}>
+						<PropertyLine key={title} title={title}>
 							{notLast}; {nonmagical.join(', ')} {last.note}
 						</PropertyLine>
 					)
 				}
 
-				if (typeof info === 'object') return (
-					<PropertyLine title={title} key={title}>
-						{
-							Object.entries(info)
+				if (typeof info === 'object')
+					return (
+						<PropertyLine key={title} title={title}>
+							{Object.entries(info)
 								.map(([k, v]) => `${k} ${v}`)
-								.join(', ')
-						}
+								.join(', ')}
+						</PropertyLine>
+					)
+
+				return (
+					<PropertyLine key={title} title={title}>
+						{info}
 					</PropertyLine>
 				)
-
-				return <PropertyLine title={title} key={title}>{info}</PropertyLine>
 			})}
 		</>
 	)

@@ -59,9 +59,7 @@ const useStyles = makeStyles(() =>
 
 const TaperedRule: React.FC = () => {
 	const classes = useStyles()
-	return (
-		<div className={classes.taperedRule} />
-	)
+	return <div className={classes.taperedRule} />
 }
 
 const StatBlock: React.FC = () => {
@@ -81,7 +79,9 @@ const StatBlock: React.FC = () => {
 				<TaperedRule />
 				<InfoBlock />
 				<TaperedRule />
-				{spells.map(spell => <SpellcastingBlock {...spell} key={spell.name} />)}
+				{spells.map(spell => (
+					<SpellcastingBlock {...spell} key={spell.name} />
+				))}
 				<ActionBlock />
 			</article>
 			<div className={classes.bar} />

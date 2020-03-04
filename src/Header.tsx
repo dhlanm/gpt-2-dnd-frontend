@@ -50,14 +50,16 @@ const useStyles = makeStyles(theme =>
 
 const AdapterLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>((props, ref) => {
 	const classes = useStyles()
-	return <NavLink innerRef={ref} activeClassName={classes.activeRoute} {...props} />
+	return <NavLink activeClassName={classes.activeRoute} innerRef={ref} {...props} />
 })
+
+AdapterLink.displayName = 'AdapterLink'
 
 const NavLinkButton: React.FC<NavLinkProps> = props => {
 	const classes = useStyles()
-	const {children, ...linkProps} = props
+	const { children, ...linkProps } = props
 	return (
-		<Button component={AdapterLink} {...linkProps} color="inherit" className={classes.button}>
+		<Button component={AdapterLink} {...linkProps} className={classes.button} color="inherit">
 			{children}
 		</Button>
 	)
@@ -66,21 +68,29 @@ const NavLinkButton: React.FC<NavLinkProps> = props => {
 const Header: React.FC = () => {
 	const classes = useStyles()
 	return (
-		<AppBar position="static" color="secondary">
+		<AppBar color="secondary" position="static">
 			<Toolbar>
-				<Typography variant="h6" className={classes.title}>
-					<Link to="/" className={classes.home}>
-						<img src={header} className={classes.header}
-						     alt="GPT-2 5e Monster Generator" />
+				<Typography className={classes.title} variant="h6">
+					<Link className={classes.home} to="/">
+						<img
+							alt="GPT-2 5e Monster Generator"
+							className={classes.header}
+							src={header}
+						/>
 					</Link>
 				</Typography>
-				<Hidden xsDown><NavLinkButton exact to="/">Generator</NavLinkButton></Hidden>
+				<Hidden xsDown>
+					<NavLinkButton exact to="/">
+						Generator
+					</NavLinkButton>
+				</Hidden>
 				<NavLinkButton to="/about/">About</NavLinkButton>
 				<Button
-					href="https://github.com/dhlanm/gpt-2-dnd"
 					color="inherit"
+					href="https://github.com/dhlanm/gpt-2-dnd"
+					rel="noopener"
 					target="_blank"
-					rel="noopener">
+				>
 					Github
 				</Button>
 			</Toolbar>

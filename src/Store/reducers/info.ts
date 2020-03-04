@@ -13,7 +13,7 @@ export const INFO_FIELDS = [
 	'cr',
 ] as const
 
-type InfoFields = (typeof INFO_FIELDS)[number]
+type InfoFields = typeof INFO_FIELDS[number]
 
 type AdditionalInfo = { [field in InfoFields]?: string[] } & { [field: string]: unknown }
 export type InfoType = string | string[] | AdditionalInfo | (string | AdditionalInfo)[]
