@@ -1,5 +1,11 @@
 IMAGE_NAME=gpt-2-dnd-frontend
 
+GENERATE_SOURCEMAP=false
+
+npm run build
+
+rm build/static/js/*.map #to be safe
+
 docker build -t ${IMAGE_NAME} .
 
 REGION=us-east-1
