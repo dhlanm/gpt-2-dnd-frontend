@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { ThemeProvider } from '@material-ui/styles'
-import { grey } from '@material-ui/core/colors'
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
-import { Container, createMuiTheme, createStyles, Hidden, makeStyles } from '@material-ui/core'
+import { Container, createStyles, Hidden, makeStyles, useMediaQuery } from '@material-ui/core'
 import { Provider } from 'react-redux'
 import About from './About/'
 import ErrorSnackbar from './ErrorSnackbar'
@@ -12,13 +11,7 @@ import Store from './Store'
 import paper from './paper.jpg'
 import ink1 from './ink1.png'
 import ink2 from './ink2.png'
-
-const theme = createMuiTheme({
-	palette: {
-		primary: { main: '#7A200D' },
-		secondary: { main: grey[900] },
-	},
-})
+import { DARK_THEME, LIGHT_THEME } from './Theme'
 
 export const paperStyles = Object.freeze({
 	borderImageSource: `url(${paper})`,
@@ -62,6 +55,9 @@ const NoMatch: React.FC = () => <Redirect to="/" />
 
 const App: React.FC = () => {
 	const classes = useStyles()
+	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
+
+	const theme = useMemo(() => (prefersDarkMode ? DARK_THEME : LIGHT_THEME), [prefersDarkMode])
 	return (
 		<Router>
 			<ThemeProvider theme={theme}>
@@ -75,11 +71,15 @@ const App: React.FC = () => {
 						</Switch>
 					</Container>
 					<ErrorSnackbar />
-					<div className={classes.paper} />
-					<Hidden xsDown>
-						<img alt="ink" className={classes.ink1} src={ink1} />
-					</Hidden>
-					<img alt="ink" className={classes.ink2} src={ink2} />
+					{prefersDarkMode ? null : (
+						<>
+							<div className={classes.paper} />
+							<Hidden xsDown>
+								<img alt="ink" className={classes.ink1} src={ink1} />
+							</Hidden>
+							<img alt="ink" className={classes.ink2} src={ink2} />
+						</>
+					)}
 				</Provider>
 			</ThemeProvider>
 		</Router>

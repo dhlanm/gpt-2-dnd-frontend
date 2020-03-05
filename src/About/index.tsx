@@ -2,11 +2,12 @@ import React from 'react'
 import { createStyles, Link as MaterialLink, makeStyles, Typography } from '@material-ui/core'
 import clsx from 'clsx'
 
-const useStyles = makeStyles(() =>
-	createStyles({
+const useStyles = makeStyles(theme => {
+	const isDarkMode = theme.palette.type === 'dark'
+	return createStyles({
 		title: {
-			color: '#7A200D',
-			borderBottom: 'solid 2px #922510',
+			color: theme.palette.primary.main,
+			borderBottom: `solid 2px ${isDarkMode ? '#B76D69' : '#922610'}`,
 			fontFamily: 'Mr Eaves',
 		},
 		paragraph: {
@@ -17,15 +18,15 @@ const useStyles = makeStyles(() =>
 		},
 		dropCap: {
 			'&:first-letter': {
-				color: '#61543C',
+				color: isDarkMode ? '#DDC89F' : '#61543C',
 				fontFamily: 'Solbera Imitation',
 				fontSize: '3em',
 				lineHeight: '0.5em',
 				float: 'left',
 			},
 		},
-	}),
-)
+	})
+})
 
 const Link: React.FC<{ href: string }> = props => (
 	<MaterialLink href={props.href} rel="noopener" target="_blank">

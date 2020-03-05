@@ -6,15 +6,16 @@ import LoadingOverlay from '../LoadingOverlay'
 import StatHeader from './StatHeader'
 import SpellcastingBlock from './SpellcastingBlock'
 import TopStats from './TopStats'
-import { Button, createStyles, makeStyles } from '@material-ui/core'
+import { Button, createStyles, makeStyles, ThemeProvider } from '@material-ui/core'
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera'
 import { useSelector } from 'react-redux'
 import { selectLoading, selectSpells, selectStatHeader } from '../../Store/selectors'
 import parchment from './parchment.png'
 import bar from './bar.png'
 import html2canvas from 'html2canvas'
+import { LIGHT_THEME } from '../../Theme'
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(theme =>
 	createStyles({
 		container: {
 			'&:before, &:after': {
@@ -36,7 +37,7 @@ const useStyles = makeStyles(() =>
 			padding: '0.6em',
 			paddingBottom: '0.5em',
 			border: '1px #DDD solid',
-			boxShadow: '0 0 1.5em #867453',
+			boxShadow: theme.palette.type === 'dark' ? '0 0 2rem #FAEDD780' : '0 0 1.5rem #867453',
 
 			/* We don't want the box-shadow in front of the pseudo element bars. */
 			position: 'relative',
@@ -104,35 +105,37 @@ const StatBlock: React.FC = () => {
 	}, [name])
 
 	return (
-		<div className={classes.wrapper}>
-			<div className={classes.container} ref={statRef}>
-				<article className={classes.content}>
-					{loading && <LoadingOverlay />}
-					<StatHeader />
-					<TaperedRule />
-					<TopStats />
-					<TaperedRule />
-					<AbilitiesBlock />
-					<TaperedRule />
-					<InfoBlock />
-					<TaperedRule />
-					{spells.map(spell => (
-						<SpellcastingBlock {...spell} key={spell.name} />
-					))}
-					<ActionBlock />
-				</article>
+		<ThemeProvider theme={LIGHT_THEME}>
+			<div className={classes.wrapper}>
+				<div className={classes.container} ref={statRef}>
+					<article className={classes.content}>
+						{loading && <LoadingOverlay />}
+						<StatHeader />
+						<TaperedRule />
+						<TopStats />
+						<TaperedRule />
+						<AbilitiesBlock />
+						<TaperedRule />
+						<InfoBlock />
+						<TaperedRule />
+						{spells.map(spell => (
+							<SpellcastingBlock {...spell} key={spell.name} />
+						))}
+						<ActionBlock />
+					</article>
+				</div>
+				{!loading && (
+					<Button
+						className={classes.screenshot}
+						color="primary"
+						onClick={takeScreenshot}
+						variant="contained"
+					>
+						<PhotoCameraIcon />
+					</Button>
+				)}
 			</div>
-			{!loading && (
-				<Button
-					className={classes.screenshot}
-					color="primary"
-					onClick={takeScreenshot}
-					variant="contained"
-				>
-					<PhotoCameraIcon />
-				</Button>
-			)}
-		</div>
+		</ThemeProvider>
 	)
 }
 

@@ -9,6 +9,12 @@ body {
 	overflow-x: hidden;
 }
 
+@media(prefers-color-scheme: dark) {
+	body {
+		background-color: #212121;
+	}
+}
+
 code, pre {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

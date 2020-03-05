@@ -18,7 +18,7 @@ import { loadData } from '../Store/actions'
 import { selectLoading } from '../Store/selectors'
 import { paperStyles } from '../App'
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(theme =>
 	createStyles({
 		createButton: {
 			marginTop: 16,
@@ -32,20 +32,22 @@ const useStyles = makeStyles(() =>
 		tempInput: {
 			width: '5em',
 		},
-		select: {
-			'&>div[role="document"]': {
-				backgroundColor: '#F6EFDA',
-				'&:before': {
-					...paperStyles,
-					content: '""',
-					position: 'absolute',
-					top: 0,
-					left: 0,
-					right: 0,
-					bottom: 0,
-				},
-			},
-		},
+		select:
+			theme.palette.type === 'dark'
+				? {}
+				: {
+						'&>div[tabindex="-1"]': {
+							'&:before': {
+								...paperStyles,
+								content: '""',
+								position: 'absolute',
+								top: 0,
+								left: 0,
+								right: 0,
+								bottom: 0,
+							},
+						},
+				  },
 	}),
 )
 
@@ -211,7 +213,7 @@ function Form(): React.ReactElement {
 					<MenuItem value="A">Any Alignment</MenuItem>
 				</Select>
 			</FormControl>
-			<Typography gutterBottom id="temp-label">
+			<Typography gutterBottom id="temp-label" variant="body1">
 				Temperature
 			</Typography>
 			<Box alignItems="center" display="flex">

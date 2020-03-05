@@ -1,11 +1,14 @@
 import React, { useCallback } from 'react'
-import { Button, createStyles, makeStyles } from '@material-ui/core'
+import { Button, createStyles, makeStyles, ThemeProvider } from '@material-ui/core'
 import parchment from './parchment-green.png'
 import { useSelector } from 'react-redux'
 import { selectJsonString } from '../Store/selectors'
+import { LIGHT_THEME } from '../Theme'
 
-const useStyles = makeStyles(() =>
-	createStyles({
+const useStyles = makeStyles(theme => {
+	const isDarkMode = theme.palette.type === 'dark'
+	const boxShadow = isDarkMode ? '0 0 2rem #E9F9C880' : '0 0 1.5rem #00000070'
+	return createStyles({
 		root: {
 			padding: '12px 0',
 			position: 'relative',
@@ -52,10 +55,11 @@ const useStyles = makeStyles(() =>
 			backgroundSize: '100% auto',
 			backgroundRepeat: 'repeat-y',
 			backgroundPositionY: Math.round(Math.random() * 600),
-			boxShadow: '0 0 16px #00000070',
+			boxShadow,
 			zIndex: -1,
 		},
 		pre: {
+			borderColor: 'black',
 			borderStyle: 'solid none',
 			borderWidth: '4px 0',
 			fontSize: '0.75rem',
@@ -64,33 +68,28 @@ const useStyles = makeStyles(() =>
 			padding: '16px 0',
 			wordWrap: 'break-word',
 			whiteSpace: 'pre-wrap',
-			'&:before': {
+			'&:before, &:after': {
 				display: 'block',
 				position: 'absolute',
 				content: '""',
 				bottom: 0,
-				left: 0,
 				width: 0,
 				height: 0,
 				borderStyle: 'solid',
+			},
+			'&:before': {
+				left: 0,
 				borderWidth: '0 24px 16px 0',
 				borderColor: 'transparent black transparent transparent',
 			},
 			'&:after': {
-				display: 'block',
-				position: 'absolute',
 				right: 0,
-				bottom: 0,
-				content: '""',
-				width: 0,
-				height: 0,
-				borderStyle: 'solid',
 				borderWidth: '16px 24px 0 0',
 				borderColor: 'black transparent transparent black',
 			},
 		},
-	}),
-)
+	})
+})
 
 // https://stackoverflow.com/questions/400212/
 function fallbackCopyTextToClipboard(text: string) {
@@ -122,18 +121,20 @@ const CodeBlock: React.FC = () => {
 	const jsonString = useSelector(selectJsonString)
 	const copyString = useCallback(() => copyTextToClipboard(jsonString), [jsonString])
 	return (
-		<aside className={classes.root}>
-			<Button
-				className={classes.copy}
-				color="primary"
-				onClick={copyString}
-				variant="contained"
-			>
-				Copy
-			</Button>
-			<div className={classes.wrapper} />
-			<pre className={classes.pre}>{jsonString}</pre>
-		</aside>
+		<ThemeProvider theme={LIGHT_THEME}>
+			<aside className={classes.root}>
+				<Button
+					className={classes.copy}
+					color="primary"
+					onClick={copyString}
+					variant="contained"
+				>
+					Copy
+				</Button>
+				<div className={classes.wrapper} />
+				<pre className={classes.pre}>{jsonString}</pre>
+			</aside>
+		</ThemeProvider>
 	)
 }
 

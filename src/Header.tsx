@@ -3,12 +3,15 @@ import { Link, NavLink, NavLinkProps } from 'react-router-dom'
 import {
 	AppBar,
 	Button,
+	createMuiTheme,
 	createStyles,
 	Hidden,
 	IconButton,
 	makeStyles,
 	Menu,
 	MenuItem,
+	Theme,
+	ThemeProvider,
 	Toolbar,
 	Typography,
 } from '@material-ui/core'
@@ -118,6 +121,16 @@ const OverflowMenu: React.FC = () => {
 	)
 }
 
+const MENU_THEME = (theme: Theme) =>
+	createMuiTheme({
+		palette: {
+			type: 'dark',
+			background: {
+				paper: theme.palette.secondary.main,
+			},
+		},
+	})
+
 const Header: React.FC = () => {
 	const classes = useStyles()
 	return (
@@ -147,7 +160,9 @@ const Header: React.FC = () => {
 					</Button>
 				</Hidden>
 				<Hidden smUp>
-					<OverflowMenu />
+					<ThemeProvider theme={MENU_THEME}>
+						<OverflowMenu />
+					</ThemeProvider>
 				</Hidden>
 			</Toolbar>
 		</AppBar>
