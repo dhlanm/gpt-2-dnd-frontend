@@ -1,49 +1,56 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { Link, NavLink, NavLinkProps } from 'react-router-dom'
 import {
 	AppBar,
 	Button,
 	createStyles,
 	Hidden,
+	IconButton,
 	makeStyles,
+	Menu,
+	MenuItem,
 	Toolbar,
 	Typography,
 } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
+import MoreIcon from '@material-ui/icons/MoreVert'
 import header from './header.svg'
 
 const useStyles = makeStyles(theme =>
 	createStyles({
 		title: {
+			alignItems: 'center',
+			display: 'flex',
 			flexGrow: 1,
-			position: 'relative',
 		},
 		header: {
-			height: 64,
-			marginLeft: -18,
-			position: 'absolute',
 			top: 0,
+			height: 75,
+			position: 'absolute',
 			transform: 'translateY(-50%)',
-			transition: 'opacity 100ms linear',
 			[theme.breakpoints.down('xs')]: {
-				height: 42,
+				height: 67,
 			},
-			'&:hover': {
+		},
+		home: {
+			position: 'relative',
+			transition: 'opacity 100ms linear',
+			'&:hover, &:focus': {
 				opacity: 0.8,
 			},
 			'&:active': {
 				opacity: 0.7,
 			},
 		},
-		home: {
-			color: 'inherit',
-			textDecoration: 'none',
-		},
 		button: {
 			marginRight: 12,
 		},
 		activeRoute: {
 			color: grey[500],
+		},
+		toolbar: {
+			paddingLeft: 0,
+			overflow: 'hidden',
 		},
 	}),
 )
@@ -65,11 +72,57 @@ const NavLinkButton: React.FC<NavLinkProps> = props => {
 	)
 }
 
+const OverflowMenu: React.FC = () => {
+	const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null)
+
+	const onClickOverflow = useCallback(
+		(event: React.MouseEvent<HTMLButtonElement>) => setMenuAnchor(event.currentTarget),
+		[],
+	)
+	const onClose = useCallback(() => setMenuAnchor(null), [])
+
+	return (
+		<>
+			<IconButton
+				aria-label="display more actions"
+				color="inherit"
+				edge="end"
+				onClick={onClickOverflow}
+			>
+				<MoreIcon />
+			</IconButton>
+			<Menu
+				anchorEl={menuAnchor}
+				id="simple-menu"
+				keepMounted
+				onClose={onClose}
+				open={menuAnchor != null}
+			>
+				<MenuItem component={AdapterLink} exact onClick={onClose} to="/">
+					Generator
+				</MenuItem>
+				<MenuItem component={AdapterLink} onClick={onClose} to="/about/">
+					About
+				</MenuItem>
+				<MenuItem
+					component="a"
+					href="https://github.com/dhlanm/gpt-2-dnd"
+					onClick={onClose}
+					rel="noopener"
+					target="_blank"
+				>
+					Github
+				</MenuItem>
+			</Menu>
+		</>
+	)
+}
+
 const Header: React.FC = () => {
 	const classes = useStyles()
 	return (
 		<AppBar color="secondary" position="static">
-			<Toolbar>
+			<Toolbar className={classes.toolbar}>
 				<Typography className={classes.title} variant="h6">
 					<Link className={classes.home} to="/">
 						<img
@@ -83,16 +136,19 @@ const Header: React.FC = () => {
 					<NavLinkButton exact to="/">
 						Generator
 					</NavLinkButton>
+					<NavLinkButton to="/about/">About</NavLinkButton>
+					<Button
+						color="inherit"
+						href="https://github.com/dhlanm/gpt-2-dnd"
+						rel="noopener"
+						target="_blank"
+					>
+						Github
+					</Button>
 				</Hidden>
-				<NavLinkButton to="/about/">About</NavLinkButton>
-				<Button
-					color="inherit"
-					href="https://github.com/dhlanm/gpt-2-dnd"
-					rel="noopener"
-					target="_blank"
-				>
-					Github
-				</Button>
+				<Hidden smUp>
+					<OverflowMenu />
+				</Hidden>
 			</Toolbar>
 		</AppBar>
 	)
